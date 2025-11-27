@@ -1,0 +1,1312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <title>قالب ریود :: درباره ما</title>
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Riode - Ultimate eCommerce Template">
+    <meta name="author" content="D-THEMES">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/icons/favicon.png">
+    <script>
+        WebFontConfig = {
+            google: { families: ['vazir:300,400,500,600,700'] }
+        };
+        (function (d) {
+            var wf = d.createElement('script'), s = d.scripts[0];
+            wf.src = 'js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.min.css' %}">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/magnific-popup/magnific-popup.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/owl-carousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/sticky-icon/stickyicon.css' %}">
+    <!-- Font Vazir -->
+    <link href="{% static 'fonts/vazir/font-vazir.css' %}" rel="stylesheet" />
+    <!-- Main CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}">
+</head>
+<body class="about-us">
+    <div class="page-wrapper">
+        <header class="header rtl text-right">
+            <div class="header-top ">
+                <div class="container">
+                    {% comment %} <div class="header-right">
+                        <p class="welcome-msg"> </p>
+                    </div> {% endcomment %}
+                    <div class="header-right">
+                        {% if user.is_authenticated %}
+                            <p class="welcome-msg"> خوش آمدید، {{ user.username }} عزیز! </p>
+                        {% else %}
+                            <p class="welcome-msg"> خوش آمدید! لطفاً <a href="{% url 'login' %}">وارد شوید</a>.</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="header-left">
+                        {% comment %} <div class="dropdown">
+                            <a href="#currency">تومان</a>
+                            <ul class="dropdown-box">
+                                <li><a href="#USD">تومان</a></li>
+                                <li><a href="#EUR">ریال</a></li>
+                            </ul>
+                        </div> {% endcomment %}
+                        <!-- End DropDown Menu -->
+                        {% comment %} <div class="dropdown">
+                            <a href="#language">فارسی</a>
+                            <ul class="dropdown-box">
+                                <li>
+                                    <a href="#USD">English</a>
+                                </li>
+                                <li>
+                                    <a href="#EUR">العربیه</a>
+                                </li>
+                            </ul>
+                        </div> {% endcomment %}
+                        <!-- End DropDown Menu -->
+                        <span class="divider"></span>
+                        {% comment %} <a href="contact-us.html" class="contact d-lg-show"><i class="d-icon-map"></i>تماس با ما</a>
+                        <a href="#" class="help d-lg-show"><i class="d-icon-info"></i> به مشاوره نیاز دارید؟</a> {% endcomment %}
+                        <a href="#signin" class="login-toggle link-to-tab">
+                            <i class="d-icon-user"></i>ورود
+                        </a>
+                        <div class="dropdown login-dropdown off-canvas">
+                            <div class="canvas-overlay"></div>
+                            <!-- End Login Toggle -->
+                            <div class="dropdown-box scrollable">
+                                <div class="login-popup">
+                                    <div class="form-box">
+                                        <div class="tab tab-nav-simple tab-nav-boxed form-tab">
+                                            <ul class="nav nav-tabs nav-fill align-items-center border-no justify-content-center mb-5" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active border-no lh-1 ls-normal" href="#signin">ورود </a>
+                                                </li>
+                                                <li class="delimiter">/</li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="signin">
+                                                    <form action="{% url 'login' %}" method="post">
+                                                        {% csrf_token %}
+                                                        
+                                                        <!-- نمایش خطاهای فرم -->
+                                                        {% if form.errors %}
+                                                            <div class="alert alert-danger">
+                                                                <ul>
+                                                                    {% for field in form %}
+                                                                        {% for error in field.errors %}
+                                                                            <li>{{ error }}</li>
+                                                                        {% endfor %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        {% endif %}
+                                                        
+                                                        <div class="form-group mb-3">
+                                                            <input type="text" class="form-control text-left" id="singin-email"
+                                                                   name="username" placeholder="نام کاربری" required>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <input type="password" class="form-control text-left ltr"
+                                                                   id="singin-password" name="password" placeholder="کلمه عبور" required>
+                                                        </div>
+                                                        <div class="form-footer mb-3">
+                                                            <div class="form-checkbox">
+                                                                <input type="checkbox" class="custom-checkbox"
+                                                                       id="signin-remember" name="signin-remember">
+                                                                <label class="form-control-label" for="signin-remember">من را به خاطر بسپار</label>
+                                                            </div>
+                                                            <a href="{% url 'password_reset' %}" class="lost-link">کلمه عبور را فراموش کرده اید؟</a>
+                                                        </div>
+                                                        <button class="btn btn-dark btn-block btn-rounded" type="submit">
+                                                            ورود
+                                                        </button>
+                                                    </form>
+                                                    <div class="form-choice text-center mt-3">
+                                                        <label class="ls-m">یا ورود با</label>
+                                                        <div class="social-links">
+                                                            <a href="#" title="social-link"
+                                                               class="social-link social-google fab fa-google border-no"></a>
+                                                            <a href="#" title="social-link"
+                                                               class="social-link social-facebook fab fa-facebook-f border-no"></a>
+                                                            <a href="#" title="social-link"
+                                                               class="social-link social-twitter fab fa-twitter border-no"></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button title="Close (Esc)" type="button" class="mfp-close"><span>×</span></button>
+                                </div>
+                            </div>
+                            <!-- End Dropdown Box -->
+                        </div>
+                        
+                        <!-- End of Login -->
+                    </div>
+                </div>
+            </div>
+            <!-- End HeaderTop -->
+            <div class="header-middle sticky-header fix-top sticky-content  ">
+                <div class="container">
+                    <div class="header-right">
+                        <a href="#" class="mobile-menu-toggle">
+                            <i class="d-icon-bars2"></i>
+                        </a>
+                        <a href="demo1.html" class="logo">
+                            <img src="{% static 'images/logo.png' %}" alt="logo" width="153" height="44" />
+                        </a>
+                        <!-- End Logo -->
+                        {% comment %} <div class="header-search hs-simple">
+                            <form action="#" class="input-wrapper">
+                                <input type="text" class="form-control" name="search" autocomplete="off"
+                                       placeholder="جستجو ..." required />
+                                <button class="btn btn-search" type="submit" title="submit-button">
+                                    <i class="d-icon-search"></i>
+                                </button>
+
+                            </form>
+                        </div> {% endcomment %}
+                        <!-- End Header Search -->
+                    </div>
+                    <div class="header-left">
+                        {% comment %} <a href="tel:#" class="icon-box icon-box-side">
+                            <div class="icon-box-icon ml-0 ml-lg-2">
+                                <i class="d-icon-phone"></i>
+                            </div>
+                            {% comment %} <div class="icon-box-content d-lg-show">
+                                <h4 class="icon-box-title">پشتیبانی سایت:</h4>
+                                <p> 09112345678 </p>
+                            </div> {% endcomment %}
+                        {% comment %} </a>  {% endcomment %}
+                        <span class="divider"></span>
+                        <div class="dropdown wishlist wishlist-dropdown off-canvas">
+                            {% comment %} <a href="wishlist.html" class="wishlist-toggle">
+                                <i class="d-icon-heart"></i>
+                            </a> {% endcomment %}
+                            <div class="canvas-overlay"></div>
+                            <!-- End Wishlist Toggle -->
+                            <div class="dropdown-box scrollable">
+                                {% comment %} <div class="canvas-header">
+                                    <h4 class="canvas-title">علاقمندی</h4>
+                                    <a href="#" class="btn btn-dark btn-link btn-icon-right btn-close">
+                                        بستن<i class="d-icon-arrow-left"></i><span class="sr-only">محصولات مورد علاقه</span>
+                                    </a>
+                                </div> {% endcomment %}
+                                <div class="products scrollable">
+                                    {% comment %} <div class="product product-wishlist">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{% static 'images/wishlist/product-1.jpg' %}" width="100" height="100"
+                                                     alt="product" />
+                                            </a>
+                                            <button class="btn btn-link btn-close">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+
+                                            <a href="product.html" class="product-name">کوله پشتی</a>
+                                            <div class="price-box">
+                                                <span class="product-price">1,700,000 تومان</span>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <!-- End of wishlist Product -->
+                                    {% comment %} <div class="product product-wishlist">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{% static 'images/wishlist/product-2.jpg' %}" width="100" height="100"
+                                                     alt="product" />
+                                            </a>
+                                            <button class="btn btn-link btn-close">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+                                            <a href="product.html" class="product-name"> شال بافت</a>
+                                            <div class="price-box">
+                                                <span class="product-price">1,700,000 تومان</span>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <!-- End of wishlist Product -->
+                                    {% comment %} <div class="product product-wishlist">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{% static 'images/wishlist/product-3.jpg' %}" width="100" height="100"
+                                                     alt="product" />
+                                            </a>
+                                            <button class="btn btn-link btn-close">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+                                            <a href="product.html" class="product-name"> شلوار جین</a>
+                                            <div class="price-box">
+                                                <span class="product-price">1,700,000 تومان</span>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <!-- End of wishlist Product -->
+                                </div>
+                                {% comment %} <a href="wishlist.html" class="btn btn-dark wishlist-btn mt-4">
+                                    <span>نمایش لیست</span>
+                                </a> {% endcomment %}
+                                <!-- End of Products  -->
+                            </div>
+                            <!-- End Dropdown Box -->
+                        </div>
+                        <span class="divider"></span>
+                        <div class="dropdown cart-dropdown type2 off-canvas mr-0 mr-lg-2">
+                            <a href="#" class="cart-toggle label-block link">
+                                <div class="cart-label d-lg-show">
+                                    <span class="cart-name">سبد خرید:</span>
+                                    <span class="cart-price">5,700,000 تومان</span>
+                                </div>
+                                <i class="d-icon-bag"><span class="cart-count">2</span></i>
+                            </a>
+                            <div class="canvas-overlay"></div>
+                            <!-- End Cart Toggle -->
+                            <div class="dropdown-box">
+                                <div class="canvas-header">
+                                    <h4 class="canvas-title">سبد خرید</h4>
+                                    <a href="#" class="btn btn-dark btn-link btn-icon-right btn-close">
+                                        بستن<i class="d-icon-arrow-left"></i><span class="sr-only">سبد خرید</span>
+                                    </a>
+                                </div>
+                                <div class="products scrollable">
+                                    <div class="product product-cart">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{% static 'images/cart/product-1.jpg' %}" alt="product" width="80"
+                                                     height="88" />
+                                            </a>
+                                            <button class="btn btn-link btn-close">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+                                            <a href="product.html" class="product-name"> کفش اسپورت</a>
+                                            <div class="price-box">
+                                                
+                                                <span class="product-price">1,700,000 تومان</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Cart Product -->
+                                    <div class="product product-cart">
+                                        <figure class="product-media">
+                                            <a href="product.html">
+                                                <img src="{% static 'images/cart/product-2.jpg' %}" alt="product" width="80"
+                                                     height="88" />
+                                            </a>
+                                            <button class="btn btn-link btn-close">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+                                            <a href="product.html" class="product-name"> کلاه لبه دار زنانه</a>
+                                            <div class="price-box">
+                                                
+                                                <span class="product-price">1,700,000 تومان</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Cart Product -->
+                                </div>
+                                <!-- End of Products  -->
+                                <div class="cart-total">
+                                    <label>جمع سبد:</label>
+                                    <span class="price">5,700,000 تومان</span>
+                                </div>
+                                <!-- End of Cart Total -->
+                                <div class="cart-action">
+                                    <a href="cart.html" class="btn btn-dark btn-link">سبد خرید</a>
+                                    <a href="checkout.html" class="btn btn-dark"><span>پرداخت</span></a>
+                                </div>
+                                <!-- End of Cart Action -->
+                            </div>
+                            <!-- End Dropdown Box -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom d-lg-show ">
+                <div class="container">
+                    <div class="header-right">
+                        <nav class="main-nav">
+                            <ul class="menu">
+                                <li>
+                                    <a href="{% url 'productlis' %}">صفحه نخست</a>
+                                </li>
+                                {% comment %} <li class="submenu submenu-container">
+                                    <a href="shop.html">دسته بندی </a>
+                                    <div class="megamenu">
+                                        <div class="row">
+                                            <div class="col-6 col-sm-4 col-md-4 col-lg-3">
+                                                <h4 class="menu-title">فیلتر ها و بنر ها</h4>
+                                                <ul>
+                                                    <li><a href="shop-classic-filter.html">فیلتر کلاسیک</a></li>
+                                                    <li><a href="shop-right-toggle-sidebar.html"> فیلتر سمت راست ( بازشونده )</a> </li>
+                                                    <li><a href="shop-left-toggle-sidebar.html">فیلتر سمت چپ ( بازشونده )</a>  </li>
+                                                    <li><a href="shop-horizontal-filter.html">فیلتر افقی</a></li>
+                                                    <li><a href="shop-navigation-filter.html">فیلتر منو</a></li>
+                                                    <li><a href="shop-off-canvas-filter.html">فیلتر ساید ( جانبی )</a></li>
+                                                    <li><a href="shop-top-banner.html">بنر بالای صفحه</a></li>
+                                                    <li><a href="shop-inner-top-banner.html">بنر بالای لیست</a></li>
+                                                    <li><a href="shop-with-bottom-block.html">دسته بندی بلوکی</a></li>
+                                                    <li><a href="shop-category-in-page-header.html">دسته بندی در هدر</a>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-4 col-lg-3">
+                                                <h4 class="menu-title">گرید بندی </h4>
+                                                <ul>
+                                                    <li><a href="shop-grid-3cols.html">گریدبندی 3 ستونه</a></li>
+                                                    <li><a href="shop-grid-4cols.html">گریدبندی 4 ستونه</a></li>
+                                                    <li><a href="shop-grid-5cols.html">گریدبندی 5 ستونه</a></li>
+                                                    <li><a href="shop-grid-6cols.html">گریدبندی 6 ستونه</a></li>
+                                                    <li><a href="shop-grid-7cols.html">گریدبندی 7 ستونه</a></li>
+                                                    <li><a href="shop-grid-8cols.html">گریدبندی 8 ستونه</a></li>
+                                                    <li><a href="shop-list-mode.html">گرید لیست</a></li>
+                                                    <li><a href="shop-pagination.html">گرید صفحه بندی</a></li>
+                                                    <li><a href="shop-infinite-ajaxscroll.html">آژاکس بی نهایت ( اسکرول بی‌پایان ) </a></li>
+                                                    <li><a href="shop-loadmore-button.html">لود با دکمه بیشتر</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-4 col-lg-3">
+                                                <h4 class="menu-title">گرید فروشگاهی</h4>
+                                                <ul>
+                                                    <li><a href="shop-category-grid-shop.html">دسته بندی گریدی</a></li>
+                                                    <li><a href="shop-category-products.html">دسته بندی + محصولات </a></li>
+                                                    <li><a href="shop-default-1.html">فروشگاه پیش فرض 1 </a></li>
+                                                    <li><a href="shop-default-2.html">فروشگاه پیش فرض 2</a></li>
+                                                    <li><a href="shop-default-3.html">فروشگاه پیش فرض 3</a></li>
+                                                    <li><a href="shop-default-4.html">فروشگاه پیش فرض 4</a></li>
+                                                    <li><a href="shop-default-5.html">فروشگاه پیش فرض 5</a> </li>
+                                                    <li><a href="shop-default-6.html">فروشگاه پیش فرض 6</a></li>
+                                                    <li><a href="shop-default-7.html">فروشگاه پیش فرض 7</a></li>
+                                                    <li><a href="shop-default-8.html">فروشگاه پیش فرض 8</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-4 col-lg-3 menu-banner menu-banner1 banner banner-fixed">
+                                                <figure>
+                                                    <img src="{% static 'images/menu/banner-1.jpg' %}" alt="Menu banner" width="221"
+                                                         height="330" />
+                                                </figure>
+                                                <div class="banner-content y-50 text-right rtl">
+                                                    <h4 class="banner-subtitle font-weight-bold text-primary ls-m">
+                                                        فروش
+                                                    </h4>
+                                                    <h3 class="banner-title font-weight-bold">
+                                                        <span class="">بالای</span>%70 تخفیف
+                                                    </h3>
+                                                    <a href="shop.html" class="btn btn-link btn-underline">
+                                                        مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!-- End Megamenu -->
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="submenu submenu-container">
+                                    <a href="product.html">محصولات</a>
+                                    <div class="megamenu">
+                                        <div class="row">
+                                            <div class="col-6 col-sm-4 col-md-3">
+                                                <h4 class="menu-title">انواع صفحه محصول</h4>
+                                                <ul>
+                                                    <li><a href="product-simple.html">نمایش ساده محصول</a></li>
+                                                    <li><a href="product-featured.html">نمایش ویژه محصول</a></li>
+                                                    <li><a href="product.html">نمایش متغییر محصول</a></li>
+                                                    <li><a href="product-variable-swatch.html">نمایش تغییرات محصول</a> </li>
+                                                    <li><a href="product-grouped.html">نمایش گروهی محصول</a></li>
+                                                    <li><a href="product-external.html">نمایش لینک خارجی محصول</a></li>
+                                                    <li><a href="product-in-stock.html">نمایش موجود در انبار محصول</a></li>
+                                                    <li><a href="product-out-stock.html">نمایش ناموجود در انبار محصول</a></li>
+                                                    <li><a href="product-upsell.html">نمایش پرفروش ترین محصولات</a></li>
+                                                    <li><a href="product-cross-sell.html">پیشنهاد مرتبط با محصول انتخابی</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-3">
+                                                <h4 class="menu-title">انواع چیدمان محصولات</h4>
+                                                <ul>
+                                                    <li><a href="product-vertical.html">چیدمان عمودی</a></li>
+                                                    <li><a href="product-horizontal.html">چیدمان افقی</a></li>
+                                                    <li><a href="product-gallery.html">چیدمان گالری</a></li>
+                                                    <li><a href="product-grid.html">تصاویر گریدی</a></li>
+                                                    <li><a href="product-masonry.html">تصاویر سنگفرشی</a></li>
+                                                    <li><a href="product-sticky.html">اطلاعات چسبیده ( استیکی )</a></li>
+                                                    <li><a href="product-sticky-both.html">چپ وراست چسبیده ( استیکی )</a></li>
+                                                    <li><a href="product-left-sidebar.html">با سایدبار سمت چپ</a></li>
+                                                    <li><a href="product-right-sidebar.html">با سایدبار سمت راست</a></li>
+                                                    <li><a href="product-full.html">چیدمان کامل محصول </a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-3">
+                                                <h4 class="menu-title">دیگر امکانات محصول</h4>
+                                                <ul>
+                                                    <li><a href="product-sale.html">شمارش معکوس فروش</a></li>
+                                                    <li><a href="product-hurryup.html">نوتیفیکیشن آخرین فرصت</a></li>
+                                                    <li><a href="product-attribute-guide.html">با راهنمای اندازه</a></li>
+                                                    <li><a href="product-sticky-cart.html">اضافه به خرید چسبیده</a></li>
+                                                    <li><a href="product-thumbnail-label.html">برچسب روی تصویر</a></li>
+                                                    <li><a href="product-more-description.html"> تب توضیحات بیشتر</a></li>
+                                                    <li><a href="product-accordion-data.html">اطلاعات در آکاردئون</a></li>
+                                                    <li><a href="product-tabinside.html">اطلاعات در داخل </a></li>
+                                                    <li><a href="product-video.html">برچسب روی ویدئو </a></li>
+                                                    <li><a href="product-360-degree.html">برچسب روی 360 درجه</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6 col-sm-4 col-md-3 menu-banner menu-banner2 banner banner-fixed">
+                                                <figure>
+                                                    <img src="{% static 'images/menu/banner-2.jpg' %}" alt="Menu banner" width="221"
+                                                         height="330" />
+                                                </figure>
+                                                <div class="banner-content x-50 text-center">
+                                                    <h3 class="banner-title text-white text-uppercase">عینک آفتابی </h3>
+                                                    <h4 class="banner-subtitle font-weight-bold text-white mb-0">
+                                                        1,200,000 تومان - 3,800,000 تومان
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <!-- End MegaMenu -->
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">صفحات</a>
+                                    <ul>
+                                        <li><a href="about-us.html">درباره ما</a></li>
+                                        <li><a href="contact-us.html">تماس با ما</a></li>
+                                        <li><a href="account.html">حساب کاربری</a></li>
+                                        <li><a href="wishlist.html">علاقه مندی</a></li>
+                                        <li><a href="faq.html">سوالات متداول</a></li>
+                                        <li>
+                                            <a href="error-404.html">خطای 404</a>
+                                            <ul>
+                                                <li><a href="error-404.html">خطای 404-1</a></li>
+                                                <li><a href="error-404-1.html">خطای 404-2</a></li>
+                                                <li><a href="error-404-2.html">خطای 404-3</a></li>
+                                                <li><a href="error-404-3.html">خطای 404-4</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="coming-soon.html">بزودی</a></li>
+                                    </ul>
+                                </li>
+                                <li class="d-xl-show submenu submenu-container">
+                                    <a href="element.html">المان ها</a>
+                                    <div class="megamenu">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <h4 class="menu-title">المان ها 1</h4>
+                                                <ul>
+                                                    <li><a href="element-accordions.html">آکاردئون</a></li>
+                                                    <li><a href="element-alerts.html">نوتیفیکیشن و هشدارها</a></li>
+                                                    <li><a href="element-banner-effect.html">افکت بروی بنر</a></li>
+                                                    <li><a href="element-banner.html">بنر</a></li>
+                                                    <li><a href="element-blog-posts.html">پست وبلاگ</a></li>
+                                                    <li><a href="element-breadcrumb.html"> منو پیمایشی ( بردکرامب )</a></li>
+                                                    <li><a href="element-buttons.html">دکمه ها</a></li>
+                                                    <li><a href="element-cta.html">ترغیب به اقدام ( کال تو اکشن )</a></li>
+                                                    <li><a href="element-countdown.html">شمارش معکوس</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4 class="menu-title">المان ها 2</h4>
+                                                <ul>
+                                                    <li><a href="element-counter.html">شمارنده </a></li>
+                                                    <li><a href="element-creative-grid.html">گرید خلاقانه</a></li>
+                                                    <li><a href="element-animation.html">افکت ورود متن</a></li>
+                                                    <li><a href="element-floating.html">المنت های شناور</a></li>
+                                                    <li><a href="element-hotspot.html">تعاملی ( هات اسپات )</a></li>
+                                                    <li><a href="element-icon-boxes.html">جعبه های آیکن</a></li>
+                                                    <li><a href="element-icons.html">آیکن ها</a></li>
+                                                    <li><a href="element-image-box.html">جعبه عکس</a></li>
+                                                    <li><a href="element-instagrams.html">اینستاگرام</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4 class="menu-title">المان ها 3</h4>
+                                                <ul>
+                                                    <li><a href="element-categories.html">دسته بندی محصولات</a></li>
+                                                    <li><a href="element-products.html">محصولات</a></li>
+                                                    <li><a href="element-product-banner.html">محصولاب با بنر</a></li>
+                                                    <li><a href="element-product-grid.html">محصولات با گرید</a></li>
+                                                    <li><a href="element-product-single.html">تک محصوله</a></li>
+                                                    <li><a href="element-product-tab.html">محصولات با تب</a></li>
+                                                    <li><a href="element-single-product.html">تک محصوله </a></li>
+                                                    <li><a href="element-slider.html">اسلایدر</a></li>
+                                                    <li><a href="element-social-link.html">آیکن سوشیال</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4 class="menu-title">المان ها 4</h4>
+                                                <ul>
+                                                    <li><a href="element-subcategory.html">زیر شاخه</a></li>
+                                                    <li><a href="element-svg-floating.html">Svg شناور</a></li>
+                                                    <li><a href="element-tabs.html">تب ها</a></li>
+                                                    <li><a href="element-testimonials.html">نظرات مشتریان</a></li>
+                                                    <li><a href="element-titles.html">عنوان ها</a></li>
+                                                    <li><a href="element-typography.html">آرایش حروف و کاراکترها( تایپوگرافی )</a></li>
+                                                    <li><a href="element-vendor.html">فروشنده ( وندور )</a></li>
+                                                    <li>
+                                                        <a href="element-video.html">ویدئو</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="blog-classic.html">وبلاگ</a>
+                                    <ul>
+                                        <li><a href="blog-classic.html">کلاسیک</a></li>
+                                        <li><a href="blog-listing.html">وبلاگ لیست وار</a></li>
+                                        <li>
+                                            <a href="#">گرید وبلاگ</a>
+                                            <ul>
+                                                <li><a href="blog-grid-2col.html">وبلاگ  2 ستونه</a></li>
+                                                <li><a href="blog-grid-3col.html">وبلاگ  3 ستونه</a></li>
+                                                <li><a href="blog-grid-4col.html">وبلاگ  4 ستونه</a></li>
+                                                <li><a href="blog-grid-sidebar.html">وبلاگ با سایدبار</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">کاشی کاری</a>
+                                            <ul>
+                                                <li><a href="blog-masonry-2col.html">کاشی کاری 2 ستونه</a></li>
+                                                <li><a href="blog-masonry-3col.html">کاشی کاری 3 ستونه</a></li>
+                                                <li><a href="blog-masonry-4col.html">کاشی کاری 4 ستونه</a></li>
+                                                <li><a href="blog-masonry-sidebar.html">کاشی کاری با سایدبار( نوار جانبی )</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">متن روی تصویر</a>
+                                            <ul>
+                                                <li><a href="blog-mask-grid.html">متن روی تصویر درگرید</a></li>
+                                                <li><a href="blog-mask-masonry.html">متن روی تصویر در کاشی کاری</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="post-single.html">پست تکی</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="active">
+                                    <a href="about-us.html">درباره ما</a>
+                                </li> {% endcomment %}
+                            </ul>
+                        </nav>
+                    </div>
+                    {% comment %} <div class="header-left">
+                        <a href="#"><i class="d-icon-card"></i>فروش ویژه</a><a href="#" class="mr-6">خرید تمپلیت!</a>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+        <main class="main rtl text-right">
+            <nav class="breadcrumb-nav">
+                <div class="container">
+                    <ul class="breadcrumb ">
+                        <li><a href="demo1.html"><i class="d-icon-home"></i></a></li>
+                        <li>درباره ما</li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-header pl-4 pr-4" style="background-image: url(images/page-header/about-us.jpg)">
+                <h3 class="page-subtitle font-weight-bold">خوش آمدید به وبسایت ما</h3>
+                <h1 class="page-title font-weight-bold lh-1 text-white text-capitalize">درباره ما</h1>
+                <p class="page-desc text-white mb-0">
+                    در زیر اطلاعاتی در مورد خدمات سایت خواهید داشت <br>
+                    شامل آدرس و شماره تلفن و دیگر اطلاعات 
+                </p>
+            </div>
+            <div class="page-content mt-10 pt-10">
+                <section class="about-section pb-10 appear-animate">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 mb-10 mb-lg-4 ">
+                                <h5 class="section-subtitle lh-2 ls-md font-weight-normal">01. کارهایی که ما انجام می دهیم </h5>
+                                <h3 class="section-title lh-1 font-weight-bold">
+                                    ارائه آمار کامل و کاربردی
+                                </h3>
+                                <p class="section-desc">
+                                    آمار پیشرفت وبسایت  و آمار خدمات و مشتریان ما .
+                                </p>
+                            </div>
+                            <div class="col-lg-8 ">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="counter text-center text-dark">
+                                            <span class="count-to" data-fromvalue="0" data-tovalue="34"
+                                                  data-duration="900" data-delimiter=",">0</span>
+                                            <h5 class="count-title font-weight-bold text-body ls-md">سال تجاری</h5>
+                                            <p class="text-grey mb-0">
+                                               در خدمت شما هستیم<br>
+                                              وازاینکه ما را انتخاب کردید متشکریم . 
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="counter text-center text-dark">
+                                            <span class="count-to" data-fromvalue="0" data-tovalue="50"
+                                                  data-duration="900" data-delimiter=",">0</span>
+                                            <h5 class="count-title font-weight-bold text-body ls-md">طراحی برند</h5>
+                                            <p class="text-grey mb-0">
+                                                آمار طراحی برندها<br>
+                                                شامل خدمات و محصولات است.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4 ">
+                                        <div class="counter text-center text-dark">
+                                            <span class="count-to" data-fromvalue="0" data-tovalue="130"
+                                                  data-duration="900" data-delimiter=",">0</span>
+                                            <h5 class="count-title font-weight-bold text-body ls-md">اعضا تیم</h5>
+                                            <p class="text-grey mb-0">
+                                                آمار تعداد اعضا تیم <br>
+                                                شامل اعضا اصلی و فرعی است .
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- End About Section-->
+                <section class="customer-section pb-10 appear-animate">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-7 mb-4 ">
+                                <figure>
+                                    <img src="{% static 'images/subpages/customer.jpg' %}" alt="Happy Customer" width="580"
+                                         height="507" class="banner-radius" style="background-color: #BDD0DE;" />
+                                </figure>
+                            </div>
+                            <div class="col-md-5 mb-4  text-right">
+                                <h5 class="section-subtitle lh-2 ls-md font-weight-normal">02. مشتری مداری </h5>
+                                <h3 class="section-title font-weight-bold">
+                                    ارائه بروزترین <br>
+                                     محصولات و خدمات
+                                </h3>
+                                <p class="section-desc text-grey">
+                                    درحال حاضر میلیون ها نفر از این وبسایت استفاده می کنند .<br>
+                                    تکنولوژی در حال گسترش است و نیاز ها در حال افزایش .<br>
+                                    پس باید فکر وبسایت بود در دنیای به روز تکنولوژی
+                                </p>
+                                <a href="#" class="btn btn-dark btn-link btn-underline ls-m">
+                                   از فروشگاه  ما دیدن کنید <i class="d-icon-arrow-left"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- End Customer Section -->
+                <section class="store-section pb-10 appear-animate">
+                    <div class="container">
+                        <div class="row align-items-center ">
+                            <div class="col-md-6 order-md-first mb-4 text-right">
+                                <h5 class="section-subtitle lh-2 ls-md font-weight-normal mb-1">03.فروشگاه  ما</h5>
+                                <h3 class="section-title font-weight-bold">پشتیبانی شبانه روزی<br>راهنمایی محصول</h3>
+                                <p class="section-desc text-grey">
+                                    در حال حاظر افراد زیادی از این محصول استفاده میکنند.<br>
+                                    صفحه ساز و تعداد آن روز به روز بیشتر می شود.<br>
+                                    توسعه فناوری، الزامات در حال افزایش است.  وبسایت ما آورده آماده به کاره.
+                                </p>
+                                <a href="#" class="btn btn-dark btn-link btn-underline ls-m">
+                                    از فروشگاه  ما دیدن کنید <i class="d-icon-arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-4 ">
+                                <figure>
+                                    <img src="{% static 'images/subpages/store.jpg' %}" alt="Our Store" width="580" height="507"
+                                         class="banner-radius" style="background-color: #DEE6E8;" />
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End Store-section -->
+                <section class="brand-section grey-section pt-10 pb-10 appear-animate">
+                    <div class="container mt-8 mb-10 ltr">
+                        <h5 class="section-subtitle lh-2 ls-md font-weight-normal mb-1 text-center rtl">04. مشتریان ما</h5>
+                        <h3 class="section-title lh-1 font-weight-bold text-center mb-5">برندهای محبوب</h3>
+                        <div class="owl-carousel owl-theme row cols-xl-6 cols-lg-5 cols-md-4 cols-sm-3 cols-2"
+                             data-owl-options="{
+                             'rtl':true,
+                            'nav': false,
+                            'dots': false,
+                            'autoplay': true,
+                            'margin': 20,
+                            'responsive': {
+                                '0': {
+                                    'items': 2
+                                },
+                                '576': {
+                                    'items': 3
+                                },
+                                '768': {
+                                    'items': 4
+                                },
+                                '992': {
+                                    'items': 5
+                                },
+                                '1200': {
+                                    'items': 6
+                                }
+                            }
+                        }">
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/1.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/2.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/3.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/4.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/5.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                            <figure class="brand-wrap bg-white banner-radius">
+                                <img src="{% static 'images/brands/6.png' %}" alt="Brand" width="180" height="100" />
+                            </figure>
+                        </div>
+                    </div>
+                </section>
+                <section class="team-section pt-8 mt-10 pb-10 mb-6 appear-animate">
+                    <div class="container rtl">
+                        <h5 class="section-subtitle lh-2 ls-md font-weight-normal mb-1 text-center rtl">04. مدیرهای ما</h5>
+                        <h3 class="section-title lh-1 font-weight-bold text-center mb-5">اعضای تیم ما</h3>
+                        <div class="row cols-sm-2 cols-md-4">
+                            <div class="member appear-animate" data-animation-options="{'name': 'fadeInLeftShorter'}">
+                                <figure class="banner-radius">
+                                    <img src="{% static 'images/subpages/team1.jpg' %}" alt="team member" width="280" height="280"
+                                         style="background-color: #EEE;">
+                                    <div class="overlay social-links">
+                                        <a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+                                        <a href="#" class="social-link social-twitter fab fa-twitter"></a>
+                                        <a href="#" class="social-link social-linkedin fab fa-linkedin-in"></a>
+                                    </div>
+                                </figure>
+                                <h4 class="member-name">علی محمدی</h4>
+                                <h5 class="member-job">سئو / سایت</h5>
+                            </div>
+                            <div class="member appear-animate"
+                                 data-animation-options="{'name': 'fadeInLeftShorter', 'delay': '.3s'}">
+                                <figure class="banner-radius">
+                                    <img src="{% static 'images/subpages/team2.jpg' %}" alt="team member" width="280" height="280"
+                                         style="background-color: #121A1F;">
+                                    <div class="overlay social-links">
+                                        <a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+                                        <a href="#" class="social-link social-twitter fab fa-twitter"></a>
+                                        <a href="#" class="social-link social-linkedin fab fa-linkedin-in"></a>
+                                    </div>
+                                </figure>
+                                <h4 class="member-name">افسون هاشمی</h4>
+                                <h5 class="member-job">مدیر پشتیبانی / موسس</h5>
+                            </div>
+                            <div class="member appear-animate"
+                                 data-animation-options="{'name': 'fadeInLeftShorter', 'delay': '.4s'}">
+                                <figure class="banner-radius">
+                                    <img src="{% static 'images/subpages/team3.jpg' %}" alt="team member" width="280" height="280"
+                                         style="background-color: #E8E7E3;">
+                                    <div class="overlay social-links">
+                                        <a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+                                        <a href="#" class="social-link social-twitter fab fa-twitter"></a>
+                                        <a href="#" class="social-link social-linkedin fab fa-linkedin-in"></a>
+                                    </div>
+                                </figure>
+                                <h4 class="member-name">افسون هاشمی</h4>
+                                <h5 class="member-job">طراح</h5>
+                            </div>
+                            <div class="member appear-animate"
+                                 data-animation-options="{'name': 'fadeInLeftShorter', 'delay': '.5s'}">
+                                <figure class="banner-radius">
+                                    <img src="{% static 'images/subpages/team4.jpg' %}" alt="team member" width="280" height="280"
+                                         style="background-color: #465D7F;">
+                                    <div class="overlay social-links">
+                                        <a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+                                        <a href="#" class="social-link social-twitter fab fa-twitter"></a>
+                                        <a href="#" class="social-link social-linkedin fab fa-linkedin-in"></a>
+                                    </div>
+                                </figure>
+                                <h4 class="member-name">عرفان اسدی</h4>
+                                <h5 class="member-job">پشتیبانی </h5>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End Team Section -->
+            </div>
+        </main>
+        <!-- End Main -->
+        <footer class="footer rtl text-right">
+            <div class="container">
+                <div class="footer-top">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3">
+                            <a href="demo1.html" class="logo-footer">
+                                <img src="{% static 'images/logo-footer.png' %}" alt="logo-footer" width="154" height="43" />
+                            </a>
+                            <!-- End FooterLogo -->
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="widget widget-newsletter form-wrapper form-wrapper-inline">
+                                <div class="newsletter-info mx-auto mr-lg-2 ml-lg-4">
+                                    <h4 class="widget-title">عضویت در وبسایت</h4>
+                                    <p>جزء اولین کسانی باشید که از تخفیف ها و محصولات جدید ما باخبر می شوند.</p>
+                                </div>
+                                <form action="#" class="input-wrapper input-wrapper-inline">
+                                    <input type="email" class="form-control text-left" name="email" id="email"
+                                           placeholder="آدرس ایمیل" required />
+                                    <button class="btn btn-primary btn-rounded btn-md mr-2" type="submit">
+                                        عضویت <i class="d-icon-arrow-left"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- End Newsletter -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End FooterTop -->
+                <div class="footer-middle">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widget widget-info">
+                                <h4 class="widget-title">اطلاعات تماس</h4>
+                                <ul class="widget-body ">
+                                    <li>
+                                        <label>شماره تلفن:</label>
+                                        <a href="tel:#">09112345678</a>
+                                    </li>
+                                    <li>
+                                        <label>ایمیل:</label>
+                                        <a href="#">mail@sample.com</a>
+                                    </li>
+                                    <li>
+                                        <label>آدرس:</label>
+                                        <a href="#">تهران ، خیابان آرژانتین </a>
+                                    </li>
+                                    <li>
+                                        <label>ساعات کاری:</label>
+                                        <a href="#">8 صبح تا 9 شب</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widget ml-lg-4">
+                                <h4 class="widget-title">حساب کاربری</h4>
+                                <ul class="widget-body ">
+                                    <li>
+                                        <a href="about-us.html">درباره ما</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">لیست سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">پرسش های متداول</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">خدمات مشتریان</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">قوانین و مقررات</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widget ml-lg-4">
+                                <h4 class="widget-title">صفحات وبسایت</h4>
+                                <ul class="widget-body ">
+                                    <li>
+                                        <a href="#">ورود یا ثبت نام</a>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html">سبد خرید</a>
+                                    </li>
+                                    <li>
+                                        <a href="wishlist.html">لیست علاقمندی</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">پیگیری سفارش</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">راهنمای خرید</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="widget widget-instagram">
+                                <h4 class="widget-title">نمادهای اعتماد</h4>
+                                <figure class="widget-body row">
+                                    <div class="nemad-box"><img src="{% static 'images/enemad.png' %}" alt="نماد اعتماد الکترونیک"></div>
+                                    <div class="nemad-box"><img src="{% static 'images/samandehi.png' %}" alt="نماد ساماندهی"></div>
+                                </figure>
+                            </div>
+                            <!-- End Instagram -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End FooterMiddle -->
+                <div class="footer-bottom">
+                    <div class="footer-right">
+                        <figure class="payment">
+                            <img src="{% static 'images/payment.png' %}" alt="payment" width="159" height="29" />
+                        </figure>
+                    </div>
+                    <div class="footer-center">
+                        <p class="copyright">فروشگاه  آنلاین  ریود 1402 &copy;  کلیه حقوق محفوظ است .</p>
+                    </div>
+                    <div class="footer-left">
+                        <div class="social-links">
+                            <a href="#" title="social-link" class="social-link social-facebook fab fa-facebook-f"></a>
+                            <a href="#" title="social-link" class="social-link social-twitter fab fa-twitter"></a>
+                            <a href="#" title="social-link" class="social-link social-linkedin fab fa-linkedin-in"></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End FooterBottom -->
+            </div>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    <!-- Sticky Footer -->
+    <div class="sticky-footer sticky-content fix-bottom rtl">
+        <a href="demo1.html" class="sticky-link">
+            <i class="d-icon-home"></i>
+            <span>خانه</span>
+        </a>
+        <a href="shop.html" class="sticky-link">
+            <i class="d-icon-volume"></i>
+            <span>محصول</span>
+        </a>
+        <a href="wishlist.html" class="sticky-link">
+            <i class="d-icon-heart"></i>
+            <span>علاقمندی</span>
+        </a>
+        <a href="account.html" class="sticky-link">
+            <i class="d-icon-user"></i>
+            <span>کاربری</span>
+        </a>
+        <div class="header-search hs-toggle dir-up">
+            <a href="#" class="search-toggle sticky-link">
+                <i class="d-icon-search"></i>
+                <span>جستجو</span>
+            </a>
+            <form action="#" class="input-wrapper">
+                <input type="text" class="form-control" name="search" autocomplete="off"
+                       placeholder="جستجو ..." required />
+                <button class="btn btn-search" type="submit" title="submit-button">
+                    <i class="d-icon-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- Scroll Top -->
+    <a id="scroll-top" href="#top" title="Top" role="button" class="scroll-top"><i class="d-icon-arrow-up"></i></a>
+    <!-- MobileMenu -->
+    <div class="mobile-menu-wrapper">
+        <div class="mobile-menu-overlay">
+        </div>
+        <!-- End of Overlay -->
+        <a class="mobile-menu-close" href="#"><i class="d-icon-times"></i></a>
+        <!-- End of CloseButton -->
+        <div class="mobile-menu-container scrollable">
+            <form action="#" class="input-wrapper">
+                <input type="text" class="form-control" name="search" autocomplete="off"
+                       placeholder="جستجو ..." required />
+                <button class="btn btn-search" type="submit" title="submit-button">
+                    <i class="d-icon-search"></i>
+                </button>
+
+            </form>
+            <!-- End of Search Form -->
+            <ul class="mobile-menu mmenu-anim">
+                <li>
+                    <a href="demo1.html">صفحه اصلی</a>
+                </li>
+                <li>
+                    <a href="shop.html" class="active">دسته بندی</a>
+                    <ul>
+                        <li>
+                            <a href="#">فیلتر ها و بنر ها</a>
+                            <ul>
+                                <li><a href="shop-classic-filter.html">فیلتر کلاسیک</a></li>
+                                <li><a href="shop-right-toggle-sidebar.html"> فیلتر سمت راست ( بازشونده )</a> </li>
+                                <li><a href="shop-left-toggle-sidebar.html">فیلتر سمت چپ ( بازشونده )</a>  </li>
+                                <li><a href="shop-horizontal-filter.html">فیلتر افقی</a></li>
+                                <li><a href="shop-navigation-filter.html">فیلتر منو</a></li>
+                                <li><a href="shop-off-canvas-filter.html">فیلتر ساید ( جانبی )</a></li>
+                                <li><a href="shop-top-banner.html">بنر بالای صفحه</a></li>
+                                <li><a href="shop-inner-top-banner.html">بنر بالای لیست</a></li>
+                                <li><a href="shop-with-bottom-block.html">دسته بندی بلوکی</a></li>
+                                <li><a href="shop-category-in-page-header.html">دسته بندی در هدر</a>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                گرید بندی
+                            </a>
+                            <ul>
+                                <li><a href="shop-grid-3cols.html">گریدبندی 3 ستونه</a></li>
+                                <li><a href="shop-grid-4cols.html">گریدبندی 4 ستونه</a></li>
+                                <li><a href="shop-grid-5cols.html">گریدبندی 5 ستونه</a></li>
+                                <li><a href="shop-grid-6cols.html">گریدبندی 6 ستونه</a></li>
+                                <li><a href="shop-grid-7cols.html">گریدبندی 7 ستونه</a></li>
+                                <li><a href="shop-grid-8cols.html">گریدبندی 8 ستونه</a></li>
+                                <li><a href="shop-list-mode.html">گرید لیست</a></li>
+                                <li><a href="shop-pagination.html">گرید صفحه بندی</a></li>
+                                <li><a href="shop-infinite-ajaxscroll.html">آژاکس بی نهایت ( اسکرول بی‌پایان ) </a></li>
+                                <li><a href="shop-loadmore-button.html">لود با دکمه بیشتر</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">گرید فروشگاهی</a>
+                            <ul>
+                                <li><a href="shop-category-grid-shop.html">دسته بندی گریدی</a></li>
+                                <li><a href="shop-category-products.html">دسته بندی + محصولات </a></li>
+                                <li><a href="shop-default-1.html">فروشگاه پیش فرض 1 </a></li>
+                                <li><a href="shop-default-2.html">فروشگاه پیش فرض 2</a></li>
+                                <li><a href="shop-default-3.html">فروشگاه پیش فرض 3</a></li>
+                                <li><a href="shop-default-4.html">فروشگاه پیش فرض 4</a></li>
+                                <li><a href="shop-default-5.html">فروشگاه پیش فرض 5</a> </li>
+                                <li><a href="shop-default-6.html">فروشگاه پیش فرض 6</a></li>
+                                <li><a href="shop-default-7.html">فروشگاه پیش فرض 7</a></li>
+                                <li><a href="shop-default-8.html">فروشگاه پیش فرض 8</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="product.html">محصولات</a>
+                    <ul>
+                        <li>
+                            <a href="#">انواع صفحه محصول</a>
+                            <ul>
+                                <li><a href="product-simple.html">نمایش ساده محصول</a></li>
+                                <li><a href="product-featured.html">نمایش ویژه محصول</a></li>
+                                <li><a href="product.html">نمایش متغییر محصول</a></li>
+                                <li><a href="product-variable-swatch.html">نمایش تغییرات محصول</a> </li>
+                                <li><a href="product-grouped.html">نمایش گروهی محصول</a></li>
+                                <li><a href="product-external.html">نمایش لینک خارجی محصول</a></li>
+                                <li><a href="product-in-stock.html">نمایش موجود در انبار محصول</a></li>
+                                <li><a href="product-out-stock.html">نمایش ناموجود در انبار محصول</a></li>
+                                <li><a href="product-upsell.html">نمایش پرفروش ترین محصولات</a></li>
+                                <li><a href="product-cross-sell.html">پیشنهاد مرتبط با محصول انتخابی</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">انواع چیدمان محصولات</a>
+                            <ul>
+                                <li><a href="product-vertical.html">چیدمان عمودی</a></li>
+                                <li><a href="product-horizontal.html">چیدمان افقی</a></li>
+                                <li><a href="product-gallery.html">چیدمان گالری</a></li>
+                                <li><a href="product-grid.html">تصاویر گریدی</a></li>
+                                <li><a href="product-masonry.html">تصاویر سنگفرشی</a></li>
+                                <li><a href="product-sticky.html">اطلاعات چسبیده ( استیکی )</a></li>
+                                <li><a href="product-sticky-both.html">چپ وراست چسبیده ( استیکی )</a></li>
+                                <li><a href="product-left-sidebar.html">با سایدبار سمت چپ</a></li>
+                                <li><a href="product-right-sidebar.html">با سایدبار سمت راست</a></li>
+                                <li><a href="product-full.html">چیدمان کامل محصول </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">دیگر امکانات محصول</a>
+                            <ul>
+                                <li><a href="product-sale.html">شمارش معکوس فروش</a></li>
+                                <li><a href="product-hurryup.html">نوتیفیکیشن آخرین فرصت</a></li>
+                                <li><a href="product-attribute-guide.html">با راهنمای اندازه</a></li>
+                                <li><a href="product-sticky-cart.html">اضافه به خرید چسبیده</a></li>
+                                <li><a href="product-thumbnail-label.html">برچسب روی تصویر</a></li>
+                                <li><a href="product-more-description.html"> تب توضیحات بیشتر</a></li>
+                                <li><a href="product-accordion-data.html">اطلاعات در آکاردئون</a></li>
+                                <li><a href="product-tabinside.html">اطلاعات در داخل </a></li>
+                                <li><a href="product-video.html">برچسب روی ویدئو </a></li>
+                                <li><a href="product-360-degree.html">برچسب روی 360 درجه</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">صفحات</a>
+                    <ul>
+                        <li><a href="about-us.html">درباره ما</a></li>
+                        <li><a href="contact-us.html">تماس با ما</a></li>
+                        <li><a href="account.html">حساب کاربری</a></li>
+                        <li><a href="wishlist.html">علاقه مندی</a></li>
+                        <li><a href="faq.html">سوالات متداول</a></li>
+                        <li>
+                            <a href="error-404.html">خطای 404</a>
+                            <ul>
+                                <li><a href="error-404.html">خطای 404-1</a></li>
+                                <li><a href="error-404-1.html">خطای 404-2</a></li>
+                                <li><a href="error-404-2.html">خطای 404-3</a></li>
+                                <li><a href="error-404-3.html">خطای 404-4</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="coming-soon.html">بزودی</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="blog-classic.html">وبلاگ</a>
+                    <ul>
+                        <li><a href="blog-classic.html">کلاسیک</a></li>
+                        <li><a href="blog-listing.html">وبلاگ لیست وار</a></li>
+                        <li>
+                            <a href="#">گرید وبلاگ</a>
+                            <ul>
+                                <li><a href="blog-grid-2col.html">وبلاگ  2 ستونه</a></li>
+                                <li><a href="blog-grid-3col.html">وبلاگ  3 ستونه</a></li>
+                                <li><a href="blog-grid-4col.html">وبلاگ  4 ستونه</a></li>
+                                <li><a href="blog-grid-sidebar.html">وبلاگ با سایدبار</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">کاشی کاری</a>
+                            <ul>
+                                <li><a href="blog-masonry-2col.html">کاشی کاری 2 ستونه</a></li>
+                                <li><a href="blog-masonry-3col.html">کاشی کاری 3 ستونه</a></li>
+                                <li><a href="blog-masonry-4col.html">کاشی کاری 4 ستونه</a></li>
+                                <li><a href="blog-masonry-sidebar.html">کاشی کاری با سایدبار( نوار جانبی )</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">متن روی تصویر</a>
+                            <ul>
+                                <li><a href="blog-mask-grid.html">متن روی تصویر درگرید</a></li>
+                                <li><a href="blog-mask-masonry.html">متن روی تصویر در کاشی کاری</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="post-single.html">پست تکی</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="element.html">المان ها</a>
+                    <ul>
+                        <li>
+                            <a href="#">المان ها 1</a>
+                            <ul>
+                                <li><a href="element-accordions.html">آکاردئون</a></li>
+                                <li><a href="element-alerts.html">نوتیفیکیشن و هشدارها</a></li>
+                                <li><a href="element-banner-effect.html">افکت بروی بنر</a></li>
+                                <li><a href="element-banner.html">بنر</a></li>
+                                <li><a href="element-blog-posts.html">پست وبلاگ</a></li>
+                                <li><a href="element-breadcrumb.html"> منو پیمایشی ( بردکرامب )</a></li>
+                                <li><a href="element-buttons.html">دکمه ها</a></li>
+                                <li><a href="element-cta.html">ترغیب به اقدام ( کال تو اکشن )</a></li>
+                                <li><a href="element-countdown.html">شمارش معکوس</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">المان ها 2</a>
+                            <ul>
+                                <li><a href="element-counter.html">شمارنده </a></li>
+                                <li><a href="element-creative-grid.html">گرید خلاقانه</a></li>
+                                <li><a href="element-animation.html">افکت ورود متن</a></li>
+                                <li><a href="element-floating.html">المنت های شناور</a></li>
+                                <li><a href="element-hotspot.html">تعاملی ( هات اسپات )</a></li>
+                                <li><a href="element-icon-boxes.html">جعبه های آیکن</a></li>
+                                <li><a href="element-icons.html">آیکن ها</a></li>
+                                <li><a href="element-image-box.html">جعبه عکس</a></li>
+                                <li><a href="element-instagrams.html">اینستاگرام</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">المان ها 3</a>
+                            <ul>
+                                <li><a href="element-categories.html">دسته بندی محصولات</a></li>
+                                <li><a href="element-products.html">محصولات</a></li>
+                                <li><a href="element-product-banner.html">محصولاب با بنر</a></li>
+                                <li><a href="element-product-grid.html">محصولات با گرید</a></li>
+                                <li><a href="element-product-single.html">تک محصوله</a></li>
+                                <li><a href="element-product-tab.html">محصولات با تب</a></li>
+                                <li><a href="element-single-product.html">تک محصوله </a></li>
+                                <li><a href="element-slider.html">اسلایدر</a></li>
+                                <li><a href="element-social-link.html">آیکن سوشیال</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">المان ها 4</a>
+                            <ul>
+                                <li><a href="element-subcategory.html">زیر شاخه</a></li>
+                                <li><a href="element-svg-floating.html">Svg شناور</a></li>
+                                <li><a href="element-tabs.html">تب ها</a></li>
+                                <li><a href="element-testimonials.html">نظرات مشتریان</a></li>
+                                <li><a href="element-titles.html">عنوان ها</a></li>
+                                <li><a href="element-typography.html">آرایش حروف و کاراکترها( تایپوگرافی )</a></li>
+                                <li><a href="element-vendor.html">فروشنده ( وندور )</a></li>
+                                <li>
+                                    <a href="element-video.html">ویدئو</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">خرید تمپلیت </a></li>
+            </ul>
+            <!-- End of MobileMenu -->
+        </div>
+    </div>
+    <!-- sticky icons-->
+    <div class="sticky-icons-wrapper rtl">
+        <div class="sticky-icon-links">
+            <ul>
+                <li><a href="#" class="demo-toggle"><i class="fas fa-home"></i><span>دموها</span></a></li>
+                <li>
+                    <a href="documentation.html"><i class="fas fa-info-circle"></i><span>مستندات</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-star"></i><span>بازدید</span></a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-shopping-cart"></i><span>
+                         مشاهده و انتخاب
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="demos-list">
+            <div class="demos-overlay"></div>
+            <a class="demos-close" href="#"><i class="close-icon"></i></a>
+            <div class="demos-content scrollable scrollable-light">
+                <h3 class="demos-title">دموها</h3>
+                <div class="demos">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Plugins JS File -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.count-to/jquery-numerator.min.js' %}"></script>
+    <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'vendor/owl-carousel/owl.carousel.min.js' %}"></script>
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.min.js' %}"></script>
+</body>
+</html>

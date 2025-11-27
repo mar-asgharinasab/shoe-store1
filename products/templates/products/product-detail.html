@@ -1,0 +1,1135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>فروشگاه  آنلاین ریود:: محصول نمونه   </title>
+	<meta name="keywords" content="HTML5 Template" />
+	<meta name="description" content="Riode - Ultimate eCommerce Template">
+	<meta name="author" content="SW-THEMES">
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png">
+	<script>
+		WebFontConfig = {
+			google: { families: ['vazir:400,500,600,700'] }
+		};
+		(function (d) {
+			var wf = d.createElement('script'), s = d.scripts[0];
+			wf.src = 'js/webfont.js';
+			wf.async = true;
+			s.parentNode.insertBefore(wf, s);
+		})(document);
+	</script>
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.min.css' %}">
+	<!-- Plugins CSS File -->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/magnific-popup/magnific-popup.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl-carousel/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/photoswipe/photoswipe.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/photoswipe/default-skin/default-skin.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/sticky-icon/stickyicon.css' %}">
+	<!-- Font Vazir -->
+	<link href="{% static 'fonts/vazir/font-vazir.css' %}" rel="stylesheet" />
+	<!-- Main CSS File -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}">
+</head>
+<style>
+    body { background: #f8f9fa; font-family: "Vazirmatn", sans-serif; }
+    .rtl { direction: rtl; text-align: right; }
+
+    /* 🖼 گالری */
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .product-gallery .main-image {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .product-gallery .main-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+    .product-gallery .thumbs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+    .product-gallery .thumb {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .product-gallery .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .product-gallery .thumb:hover {
+      border-color: #007bff;
+    }
+
+    /* 🧾 فرم */
+    .product-form {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .product-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      font-size: 15px;
+      margin-left: 15px;
+    }
+    .color-options {
+      display: flex;
+      gap: 10px;
+    }
+    .color-circle input { display: none; }
+    .color-circle .circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .color-circle input:checked + .circle {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0,123,255,0.4);
+    }
+
+    /* سایز dropdown */
+    .size-dropdown {
+      position: relative;
+      width: 220px;
+    }
+    .selected-size {
+      background: #f9fafc;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .size-list {
+      display: none;
+      position: absolute;
+      top: 105%;
+      right: 0;
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .size-option {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .size-option:hover {
+      background: #eaf2ff;
+      color: #007bff;
+    }
+
+    /* تعداد */
+    .quantity-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity-btn {
+      background: #f1f3f4;
+      border: 1px solid #ccc;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    /* دکمه خرید */
+    .btn-add-cart {
+      width: 100%;
+      background: linear-gradient(135deg, #007bff, #005fcf);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 0;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-add-cart:hover {
+      background: linear-gradient(135deg, #006ae2, #004fa8);
+    }
+
+    /* 📘 تب‌ها */
+    .product-tabs {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-top: 50px;
+      padding: 25px;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 15px;
+      border-bottom: 2px solid #eee;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 3px solid transparent;
+      transition: 0.3s;
+    }
+    .tab-btn.active {
+      color: #007bff;
+      border-color: #007bff;
+    }
+    .tab-content {
+      display: none;
+      margin-top: 20px;
+      color: #444;
+      line-height: 1.9;
+      font-size: 15px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="rtl">
+  <div class="container py-5">
+    <div class="row product-detail align-items-start">
+      
+      <!-- 🖼 گالری سمت راست -->
+      <div class="col-md-6 order-md-2">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img id="mainImage" src="{{ gallery.0.image.url }}" alt="{{ product.title }}">
+          </div>
+          <div class="thumbs">
+            {% for image in gallery %}
+            <div class="thumb">
+              <img src="{{ image.image.url }}" alt="thumbnail">
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- 🛒 فرم سمت چپ -->
+      <div class="col-md-6 order-md-1">
+        <form method="post" class="product-form shadow-sm">
+          {% csrf_token %}
+          <h2 class="product-title mb-3">{{ product.title }}</h2>
+          <p class="product-price mb-4 text-primary h5">{{ product.sell_price }} تومان</p>
+
+          <!-- رنگ -->
+          <div class="product-section">
+            <label class="form-label">رنگ:</label>
+            <div class="color-options">
+              {% for color in colors %}
+              <label class="color-circle" title="{{ color.name }}">
+                <input type="radio" name="color" value="{{ color.id }}" {% if forloop.first %}checked{% endif %}>
+                <span class="circle" style="background-color: {{ color.hex_code }}"></span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- سایز -->
+          <div class="product-section product-size">
+            <label class="form-label">سایز:</label>
+            <div class="size-dropdown" id="sizeDropdown">
+              <div class="selected-size" id="selectedSize">یک سایز انتخاب کنید</div>
+              <div class="size-list" id="sizeList">
+                {% for s in product.size.all %}
+                <div class="size-option" data-value="{{ s.id }}">{{ s.title }}</div>
+                {% endfor %}
+              </div>
+              <input type="hidden" name="size" id="sizeInput">
+            </div>
+          </div>
+
+          <!-- تعداد -->
+          <div class="product-section">
+            <label class="form-label">تعداد:</label>
+            <div class="quantity-group">
+              <button type="button" class="quantity-btn minus">−</button>
+              <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+              <button type="button" class="quantity-btn plus">+</button>
+            </div>
+          </div>
+
+          <!-- دکمه خرید -->
+          <div class="add-cart mt-4">
+            <button type="submit" class="btn-add-cart">
+              <i class="d-icon-bag"></i> افزودن به سبد خرید
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 📘 تب‌ها: توضیحات و راهنمای سایز -->
+    <div class="product-tabs mt-5">
+      <div class="tab-buttons">
+        <div class="tab-btn active" data-tab="desc">توضیحات محصول</div>
+        <div class="tab-btn" data-tab="size">راهنمای سایز</div>
+      </div>
+      <div class="tab-content active" id="desc">
+        {{ product.description|safe }}
+      </div>
+      <div class="tab-content" id="size">
+        {{ product.size_guide|safe }}
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // تعویض عکس اصلی
+  document.querySelectorAll('.thumb img').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('mainImage').src = img.src;
+    });
+  });
+
+  // کنترل تعداد
+  document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const input = this.parentNode.querySelector('.quantity-input');
+      let val = parseInt(input.value);
+      if (this.classList.contains('plus')) input.value = val + 1;
+      else if (this.classList.contains('minus') && val > 1) input.value = val - 1;
+    });
+  });
+
+  // سایز dropdown
+  const dropdown = document.getElementById('sizeDropdown');
+  const selected = document.getElementById('selectedSize');
+  const list = document.getElementById('sizeList');
+  const hiddenInput = document.getElementById('sizeInput');
+
+  selected.addEventListener('click', () => {
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  });
+  document.querySelectorAll('.size-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      selected.textContent = opt.textContent;
+      hiddenInput.value = opt.getAttribute('data-value');
+      list.style.display = 'none';
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) list.style.display = 'none';
+  });
+
+  // تب‌ها
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const id = tab.dataset.tab;
+      contents.forEach(c => c.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    });
+  });
+  </script>
+</body>
+</html>
+
+		{% comment %} <script>
+			function changeQuantity(amount) {
+				const quantityInput = document.getElementById('quantity');
+				let currentQuantity = parseInt(quantityInput.value);
+				if (!isNaN(currentQuantity)) {
+					currentQuantity += amount;
+					if (currentQuantity < 1) currentQuantity = 1;
+					quantityInput.value = currentQuantity;
+				}
+			}
+		</script> {% endcomment %}
+		
+
+		 {% comment %} <main class="main mt-6 single-product rtl text-right">
+			<div class="page-content mb-10 pb-6">
+				<div class="container">
+					<div class="product product-single row mb-7">
+						<div class="col-md-6 sticky-sidebar-wrapper">
+							<div class="product-gallery pg-vertical sticky-sidebar ltr"
+								 data-sticky-options="{'minWidth': 767}">
+								<!-- نمایش گالری تصاویر محصول -->
+								<div class="product-single-carousel owl-carousel owl-theme owl-nav-inner row cols-1 gutter-no ltr">
+									{% for image in gallery %}
+										<figure class="product-image">
+											<img src="{{ image.image.url }}" alt="{{ product.title }}" width="800" height="900">
+										</figure>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="product-details rtl">
+								<h1 class="product-name">{{ product.title }}</h1>
+								<div class="product-meta">
+									کد کالا: <span class="product-sku">{{ product.id }}</span>
+								</div>
+								<div class="product-price">{{ product.sell_price }} تومان</div>
+								<p class="product-short-desc">{{ product.description }}</p>
+								
+								<!-- فرم اضافه کردن به سبد خرید -->
+								<form action="{% url 'add_to_cart' product.id %}" method="post">
+									{% csrf_token %}
+									
+									<!-- انتخاب رنگ -->
+									<div class="product-form product-color">
+										<label>رنگ:</label>
+										<select name="color" required>
+											<option value="">انتخاب کنید</option>
+											{% for color in colors %}
+												<option value="{{ color.id }}">{{ color.title }}</option>
+											{% endfor %}
+										</select>
+									</div>
+									
+									<!-- انتخاب سایز -->
+									<div class="product-form product-size">
+										<label>سایز:</label>
+										<select name="size" required>
+											<option value="">انتخاب کنید</option>
+											{% for size in sizes %}
+												<option value="{{ size.id }}">{{ size.title }}</option>
+											{% endfor %}
+										</select>
+									</div>
+									
+									<!-- انتخاب تعداد -->
+									<div class="product-form product-qty">
+										<label>تعداد:</label>
+										<div class="input-group">
+											<button type="button" onclick="changeQuantity(-1)">-</button>
+											<input id="quantity" name="quantity" type="number" min="1" value="1" required>
+											<button type="button" onclick="changeQuantity(1)">+</button>
+										</div>
+									</div>
+		
+									<!-- دکمه اضافه به سبد خرید -->
+									<button type="submit" class="btn-product btn-cart">
+										<i class="d-icon-bag"></i> اضافه به سبد خرید
+									</button>
+								</form>
+								
+								<!-- نمایش پیام‌ها در صورت وجود -->
+								{% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											<li class="{{ message.tags }}">{{ message }}</li>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+		<script>
+			function changeQuantity(amount) {
+				const quantityInput = document.getElementById('quantity');
+				let currentQuantity = parseInt(quantityInput.value);
+				if (!isNaN(currentQuantity)) {
+					currentQuantity += amount;
+					if (currentQuantity < 1) currentQuantity = 1;
+					quantityInput.value = currentQuantity;
+				}
+			}
+		</script>
+		 {% endcomment %}
+		<main class="main mt-6 single-product rtl text-right">
+			
+		</main>
+
+		<style>
+			/* Scoped to product detail variants to override theme styles */
+			#pd-variants .color-pill, #pd-variants .size-pill { display:inline-flex; align-items:center; cursor:pointer; }
+			/* رنگ‌ها فقط دایره بدون هیچ متن/فضای اضافه */
+			#pd-variants .color-pill {
+				width:34px; height:34px; padding:0; margin:0; justify-content:center; align-items:center;
+				border-radius:50%; background:transparent; line-height:0; gap:0;
+				font-size:0; /* جلوگیری از نمایش هر متن احتمالی */
+				letter-spacing:0;
+				white-space:nowrap;
+			}
+			/* حذف هر محتوای اضافه قبل/بعد که ممکن است قالب اضافه کند */
+			#pd-variants .color-pill::after, 
+			#pd-variants .color-pill::before { content:'' !important; display:none !important; }
+			#pd-variants .color-pill * { font-size:0; }
+			#pd-variants .color-dot { width:30px; height:30px; border-radius:50%; border:2px solid #ddd; display:inline-block; position:relative; }
+			/* انتخاب: خود دایره کاملاً آبی شود و تیک سفید داشته باشد */
+			#pd-variants .color-pill.active .color-dot { background-color:#0d6efd !important; border-color:#0d6efd !important; box-shadow:0 0 0 2px rgba(13,110,253,.25) !important; }
+			#pd-variants .color-pill.active .color-dot::after {
+				content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(45deg);
+				width:6px; height:12px; border-right:2px solid #fff; border-bottom:2px solid #fff;
+			}
+			/* اطمینان از آبی شدن با چک شدن input حتی بدون کلاس active */
+			#pd-variants .color-pill input { position:absolute; opacity:0; width:0; height:0; }
+			#pd-variants .pd-color-input:checked + .color-dot { background-color:#0d6efd !important; border-color:#0d6efd !important; box-shadow:0 0 0 2px rgba(13,110,253,.25) !important; }
+			#pd-variants .pd-color-input:checked + .color-dot::after {
+				content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(45deg);
+				width:6px; height:12px; border-right:2px solid #fff; border-bottom:2px solid #fff;
+			}
+			/* در مرورگرهای پشتیبان :has */
+			#pd-variants .color-pill:has(input:checked) .color-dot { background-color:#0d6efd !important; border-color:#0d6efd !important; box-shadow:0 0 0 2px rgba(13,110,253,.25) !important; }
+			#pd-variants .color-pill:has(input:checked) .color-dot::after {
+				content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(45deg);
+				width:6px; height:12px; border-right:2px solid #fff; border-bottom:2px solid #fff;
+			}
+			#pd-variants .size-badge { display:inline-block; min-width:44px; text-align:center; padding:6px 10px; border:2px solid #ddd; border-radius:6px; background:#fff; }
+			#pd-variants .size-pill.active .size-badge { border-color:#222; background:#f7f7f7; font-weight:600; }
+			#pd-variants .pd-size-input:checked + .size-badge { border-color:#222; background:#f7f7f7; font-weight:600; }
+			#pd-variants .product-thumbs .product-thumb img { border:2px solid transparent; border-radius:6px; }
+			#pd-variants .product-thumbs .product-thumb.active img { border-color:#222; }
+			/* اسکرول بار ظریف برای سایزها */
+			#pd-variants .size-options::-webkit-scrollbar { width: 6px; }
+			#pd-variants .size-options::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 4px; }
+		</style>
+		
+		<style>
+			/* Deprecated unscoped rules kept for backward compatibility, but scoped rules above take precedence */
+			.color-pill, .size-pill { display:inline-flex; align-items:center; cursor:pointer; }
+			/* رنگ‌ها فقط دایره بدون هیچ متن/فضای اضافه */
+			.color-pill {
+				width:34px; height:34px; padding:0; margin:0; justify-content:center; align-items:center;
+				border-radius:50%; background:transparent; line-height:0; gap:0;
+				font-size:0;
+			}
+			.color-dot { width:30px; height:30px; border-radius:50%; border:2px solid #ddd; display:inline-block; }
+			/* حلقه آبی هنگام انتخاب رنگ */
+			.color-pill.active .color-dot { border-color:#0d6efd !important; box-shadow:0 0 0 3px rgba(13,110,253,.25) !important; }
+			/* اطمینان از آبی شدن با چک شدن input */
+			.color-pill input { position:absolute; opacity:0; width:0; height:0; }
+			.pd-color-input:checked + .color-dot { border-color:#0d6efd !important; box-shadow:0 0 0 3px rgba(13,110,253,.25) !important; }
+			/* در مرورگرهای پشتیبان :has */
+			.color-pill:has(input:checked) .color-dot { border-color:#0d6efd !important; box-shadow:0 0 0 3px rgba(13,110,253,.25) !important; }
+			.size-badge { display:inline-block; min-width:44px; text-align:center; padding:6px 10px; border:2px solid #ddd; border-radius:6px; background:#fff; }
+			.size-pill.active .size-badge { border-color:#222; background:#f7f7f7; font-weight:600; }
+			.pd-size-input:checked + .size-badge { border-color:#222; background:#f7f7f7; font-weight:600; }
+			.product-thumbs .product-thumb img { border:2px solid transparent; border-radius:6px; }
+			.product-thumbs .product-thumb.active img { border-color:#222; }
+			/* اسکرول بار ظریف برای سایزها */
+			.size-options::-webkit-scrollbar { width: 6px; }
+			.size-options::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 4px; }
+		</style>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// گالری: کلیک روی بندانگشتی ها
+				var mainImg = document.getElementById('pd-main-image');
+				document.querySelectorAll('.product-thumbs .product-thumb img').forEach(function(imgEl) {
+					imgEl.addEventListener('click', function() {
+						document.querySelectorAll('.product-thumbs .product-thumb').forEach(function(t){ t.classList.remove('active'); });
+						this.closest('.product-thumb').classList.add('active');
+						if (mainImg) mainImg.src = this.src;
+					});
+				});
+
+				// انتخاب رنگ: هایلایت و نمایش تصاویر مرتبط با رنگ
+				var colorPills = document.querySelectorAll('.color-pill');
+				colorPills.forEach(function(lbl) {
+					lbl.addEventListener('click', function() {
+						document.querySelectorAll('.color-pill').forEach(function(x){ 
+							x.classList.remove('active'); 
+							x.classList.remove('btn'); 
+						});
+						this.classList.add('active');
+						this.classList.add('btn'); // برای استایل آبی قالب
+						// انتخاب input مربوطه
+						var input = this.querySelector('input[type="radio"]');
+						if (input) input.checked = true;
+						var dot = this.querySelector('.color-dot');
+						var colorTitle = dot ? (dot.getAttribute('data-color-title') || '').toLowerCase() : '';
+						// فیلتر بندانگشتی‌ها بر اساس data-color
+						var thumbs = document.querySelectorAll('.product-thumbs .product-thumb');
+						var anyShown = false;
+						thumbs.forEach(function(t){
+							var tColor = (t.getAttribute('data-color') || '').toLowerCase();
+							if (colorTitle && tColor && tColor.indexOf(colorTitle) !== -1) {
+								t.style.display = '';
+								if (!anyShown) {
+									anyShown = true;
+									var img = t.querySelector('img');
+									if (img && mainImg) {
+										document.querySelectorAll('.product-thumbs .product-thumb').forEach(function(x){ x.classList.remove('active'); });
+										t.classList.add('active');
+										mainImg.src = img.src;
+									}
+								}
+							} else if (colorTitle) {
+								t.style.display = 'none';
+							} else {
+								t.style.display = '';
+							}
+						});
+						// اگر هیچ تصویری برای رنگ پیدا نشد، همه را نشان بده
+						if (!anyShown) {
+							thumbs.forEach(function(t){ t.style.display=''; });
+						}
+					});
+				});
+
+				// انتخاب پیش‌فرض: اولین رنگ و اولین سایز (در صورت وجود)
+				if (colorPills.length > 0) {
+					var first = colorPills[0];
+					first.classList.add('active');
+					first.classList.add('btn'); // استایل اولیه آبی
+					var firstInput = first.querySelector('input[type="radio"]');
+					if (firstInput) firstInput.checked = true;
+					first.click(); // تریگر برای همگام‌سازی گالری با رنگ اول
+				}
+
+				// انتخاب سایز: هایلایت
+				var sizePills = document.querySelectorAll('.size-pill');
+				sizePills.forEach(function(lbl) {
+					lbl.addEventListener('click', function() {
+						document.querySelectorAll('.size-pill').forEach(function(x){ x.classList.remove('active'); });
+						this.classList.add('active');
+						var input = this.querySelector('input[type="radio"]');
+						if (input) input.checked = true;
+					});
+				});
+				if (sizePills.length > 0) {
+					var sFirst = sizePills[0];
+					sFirst.classList.add('active');
+					var sInput = sFirst.querySelector('input[type="radio"]');
+					if (sInput) sInput.checked = true;
+				}
+
+				// تعداد
+				var qty = document.getElementById('pd-qty');
+				var minus = document.getElementById('pd-qty-minus');
+				var plus = document.getElementById('pd-qty-plus');
+				if (minus) minus.addEventListener('click', function(){ var v = parseInt(qty.value||'1',10); qty.value = Math.max(1, v-1); });
+				if (plus) plus.addEventListener('click', function(){ var v = parseInt(qty.value||'1',10); qty.value = v+1; });
+			});
+		</script>
+		<footer class="footer rtl text-right">
+			<div class="container">
+				<div class="footer-top">
+					<div class="row align-items-center">
+						<div class="col-lg-3">
+							<a href="demo1.html" class="logo-footer">
+								<img src="{% static 'images/logo-footer.png' %}" alt="logo-footer" width="154" height="43" />
+							</a>
+							<!-- End FooterLogo -->
+						</div>
+						<div class="col-lg-9">
+							<div class="widget widget-newsletter form-wrapper form-wrapper-inline">
+								<div class="newsletter-info mx-auto mr-lg-2 ml-lg-4">
+									<h4 class="widget-title">عضویت در وبسایت</h4>
+									<p> آخرین اطلاعات ازمحصولات جدید و تخفیفات را دریافت کنید.</p>
+								</div>
+								<form action="#" class="input-wrapper input-wrapper-inline">
+									<input type="email" class="form-control text-left" name="email" id="email"
+										placeholder="آدرس ایمیل تان را وارد کنید ..." required />
+									<button class="btn btn-primary btn-rounded btn-md mr-2" type="submit">عضویت<i
+											class="d-icon-arrow-left"></i></button>
+								</form>
+							</div>
+							<!-- End Newsletter -->
+						</div>
+					</div>
+				</div>
+				<!-- End FooterTop -->
+				<div class="footer-middle">
+					<div class="row">
+						<div class="col-lg-3 col-md-6">
+							<div class="widget widget-info">
+								<h4 class="widget-title">اطلاعات تماس</h4>
+								<ul class="widget-body ">
+									<li>
+										<label>تلفن:</label>
+										<a href="tel:#">09112345678 </a>
+									</li>
+									<li>
+										<label>ایمیل:</label>
+										<a href="#">mail@sample.com</a>
+									</li>
+									<li>
+										<label>آدرس :</label>
+										<a href="#">تهران ، خیابان آرژانتین </a>
+									</li>
+									<li>
+										<label>روز و ساعت کاری:</label>
+									</li>
+									<li>
+										<a href="#"> شنبه تا پنج شنبه/ 9:00 صبح تا 8:00 شب</a>
+									</li>
+								</ul>
+							</div>
+							<!-- End Widget -->
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="widget ml-lg-4">
+								<h4 class="widget-title">  حساب کاربری من</h4>
+								<ul class="widget-body ">
+									<li>
+										<a href="about-us.html">درباره ما</a>
+									</li>
+									<li>
+										<a href="#"> تاریخ چه سفارشات</a>
+									</li>
+									<li>
+										<a href="#">مرجوعی</a>
+									</li>
+									<li>
+										<a href="#">خدمات سفارشی</a>
+									</li>
+									<li>
+										<a href="#">شرایط</a>
+									</li>
+								</ul>
+							</div>
+							<!-- End Widget -->
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="widget ml-lg-4">
+								<h4 class="widget-title">اطلاعات تماس</h4>
+								<ul class="widget-body ">
+									<li>
+										<a href="#">ورود</a>
+									</li>
+									<li>
+										<a href="cart.html">نمایش خرید </a>
+									</li>
+									<li>
+										<a href="wishlist.html">علاقه مندی</a>
+									</li>
+									<li>
+										<a href="#"> سفارش من را پیگیری کنید</a>
+									</li>
+									<li>
+										<a href="#">راهنمایی</a>
+									</li>
+								</ul>
+							</div>
+							<!-- End Widget -->
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="widget widget-instagram">
+								<h4 class="widget-title">نمادهای اعتماد</h4>
+								<figure class="widget-body row rtl">
+									<div class="nemad-box"><img src="{% static 'images/enemad.png' %}" alt="نماد اعتماد الکترونیک"></div>
+									<div class="nemad-box"><img src="{% static 'images/samandehi.png' %}" alt="نماد ساماندهی"></div>
+								</figure>
+							</div>
+							<!-- End Instagram -->
+						</div>
+					</div>
+				</div>
+				<!-- End FooterMiddle -->
+				<div class="footer-bottom">
+					<div class="footer-right">
+						<figure class="payment">
+							<img src="{% static 'images/payment.png' %}" alt="payment" width="159" height="29" />
+						</figure>
+					</div>
+					<div class="footer-center">
+						<p class="copyright"> فروشگاه  آنلاین  ریود 1402 &copy;  کلیه حقوق محفوظ است .</p>
+					</div>
+					<div class="footer-left">
+						<div class="social-links">
+							<a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+							<a href="#" class="social-link social-twitter fab fa-twitter"></a>
+							<a href="#" class="social-link social-linkedin fab fa-linkedin-in"></a>
+						</div>
+					</div>
+				</div>
+				<!-- End FooterBottom -->
+			</div>
+		</footer>
+		<!-- End Footer -->
+	</div>
+	<!-- Sticky Footer -->
+	<div class="sticky-footer sticky-content fix-bottom rtl text-right">
+		<a href="demo1.html" class="sticky-link">
+			<i class="d-icon-home"></i>
+			<span>صفحه نخست</span>
+		</a>
+		<a href="shop.html" class="sticky-link">
+			<i class="d-icon-volume"></i>
+			<span>دسته بندی</span>
+		</a>
+		<a href="wishlist.html" class="sticky-link">
+			<i class="d-icon-heart"></i>
+			<span>علاقه مندی</span>
+		</a>
+		<a href="account.html" class="sticky-link">
+			<i class="d-icon-user"></i>
+			<span>حساب کاربری</span>
+		</a>
+		<div class="header-search hs-toggle dir-up">
+			<a href="#" class="search-toggle sticky-link">
+				<i class="d-icon-search"></i>
+				<span>جستجو</span>
+			</a>
+			<form action="#" class="input-wrapper">
+				<input type="text" class="form-control" name="search" autocomplete="off"
+					placeholder="جستجو ..." required />
+				<button class="btn btn-search" type="submit">
+					<i class="d-icon-search"></i>
+				</button>
+			</form>
+		</div>
+	</div>
+	<!-- Scroll Top -->
+	<a id="scroll-top" href="#top" title="Top" role="button" class="scroll-top"><i class="d-icon-arrow-up"></i></a>
+	<!-- Root element of PhotoSwipe. Must have class pswp. -->
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		<!-- Background of PhotoSwipe. It's a separate element as animating opacity is faster than rgba(). -->
+		<div class="pswp__bg"></div>
+		<!-- Slides wrapper with overflow:hidden. -->
+		<div class="pswp__scroll-wrap">
+			<!-- Container that holds slides.
+			PhotoSwipe keeps only 3 of them in the DOM to save memory.
+			Don't modify these 3 pswp__item elements, data is added later on. -->
+			<div class="pswp__container">
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+			</div>
+			<!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+			<div class="pswp__ui pswp__ui--hidden">
+				<div class="pswp__top-bar">
+					<!--  Controls are self-explanatory. Order can be changed. -->
+					<div class="pswp__counter"></div>
+					<button class="pswp__button pswp__button--close" aria-label="Close (Esc)"></button>
+					<button class="pswp__button pswp__button--zoom" aria-label="Zoom in/out"></button>
+					<div class="pswp__preloader">
+						<div class="loading-spin"></div>
+					</div>
+				</div>
+				<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+					<div class="pswp__share-tooltip"></div>
+				</div>
+				<button class="pswp__button--arrow--left" aria-label="Previous (arrow left)"></button>
+				<button class="pswp__button--arrow--right" aria-label="Next (arrow right)"></button>
+				<div class="pswp__caption">
+					<div class="pswp__caption__center"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MobileMenu -->
+	<div class="mobile-menu-wrapper">
+		<div class="mobile-menu-overlay">
+		</div>
+		<!-- End Overlay -->
+		<a class="mobile-menu-close" href="#"><i class="d-icon-times"></i></a>
+		<!-- End CloseButton -->
+		<div class="mobile-menu-container scrollable">
+			<form action="#" class="input-wrapper">
+				<input type="text" class="form-control" name="search" autocomplete="off"
+					   placeholder="جستجو ..." required />
+				<button class="btn btn-search" type="submit">
+					<i class="d-icon-search"></i>
+				</button>
+			</form>
+			<!-- End Search Form -->
+			<ul class="mobile-menu mmenu-anim">
+				<li>
+					<a href="demo1.html">صفحه اصلی</a>
+				</li>
+				<li>
+					<a href="shop.html" class="active">دسته بندی</a>
+					<ul>
+						<li>
+							<a href="#">فیلتر ها و بنر ها</a>
+							<ul>
+								<li><a href="shop-classic-filter.html">فیلتر کلاسیک</a></li>
+								<li><a href="shop-right-toggle-sidebar.html"> فیلتر سمت راست ( بازشونده )</a> </li>
+								<li><a href="shop-left-toggle-sidebar.html">فیلتر سمت چپ ( بازشونده )</a>  </li>
+								<li><a href="shop-horizontal-filter.html">فیلتر افقی</a></li>
+								<li><a href="shop-navigation-filter.html">فیلتر منو</a></li>
+								<li><a href="shop-off-canvas-filter.html">فیلتر ساید ( جانبی )</a></li>
+								<li><a href="shop-top-banner.html">بنر بالای صفحه</a></li>
+								<li><a href="shop-inner-top-banner.html">بنر بالای لیست</a></li>
+								<li><a href="shop-with-bottom-block.html">دسته بندی بلوکی</a></li>
+								<li><a href="shop-category-in-page-header.html">دسته بندی در هدر</a>
+							</ul>
+						</li>
+						<li>
+							<a href="#">
+								گرید بندی
+							</a>
+							<ul>
+								<li><a href="shop-grid-3cols.html">گریدبندی 3 ستونه</a></li>
+								<li><a href="shop-grid-4cols.html">گریدبندی 4 ستونه</a></li>
+								<li><a href="shop-grid-5cols.html">گریدبندی 5 ستونه</a></li>
+								<li><a href="shop-grid-6cols.html">گریدبندی 6 ستونه</a></li>
+								<li><a href="shop-grid-7cols.html">گریدبندی 7 ستونه</a></li>
+								<li><a href="shop-grid-8cols.html">گریدبندی 8 ستونه</a></li>
+								<li><a href="shop-list-mode.html">گرید لیست</a></li>
+								<li><a href="shop-pagination.html">گرید صفحه بندی</a></li>
+								<li><a href="shop-infinite-ajaxscroll.html">آژاکس بی نهایت ( اسکرول بی‌پایان ) </a></li>
+								<li><a href="shop-loadmore-button.html">لود با دکمه بیشتر</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">گرید فروشگاهی</a>
+							<ul>
+								<li><a href="shop-category-grid-shop.html">دسته بندی گریدی</a></li>
+								<li><a href="shop-category-products.html">دسته بندی + محصولات </a></li>
+								<li><a href="shop-default-1.html">فروشگاه پیش فرض 1 </a></li>
+								<li><a href="shop-default-2.html">فروشگاه پیش فرض 2</a></li>
+								<li><a href="shop-default-3.html">فروشگاه پیش فرض 3</a></li>
+								<li><a href="shop-default-4.html">فروشگاه پیش فرض 4</a></li>
+								<li><a href="shop-default-5.html">فروشگاه پیش فرض 5</a> </li>
+								<li><a href="shop-default-6.html">فروشگاه پیش فرض 6</a></li>
+								<li><a href="shop-default-7.html">فروشگاه پیش فرض 7</a></li>
+								<li><a href="shop-default-8.html">فروشگاه پیش فرض 8</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="product.html">محصولات</a>
+					<ul>
+						<li>
+							<a href="#">انواع صفحه محصول</a>
+							<ul>
+								<li><a href="product-simple.html">نمایش ساده محصول</a></li>
+								<li><a href="product-featured.html">نمایش ویژه محصول</a></li>
+								<li><a href="product.html">نمایش متغییر محصول</a></li>
+								<li><a href="product-variable-swatch.html">نمایش تغییرات محصول</a> </li>
+								<li><a href="product-grouped.html">نمایش گروهی محصول</a></li>
+								<li><a href="product-external.html">نمایش لینک خارجی محصول</a></li>
+								<li><a href="product-in-stock.html">نمایش موجود در انبار محصول</a></li>
+								<li><a href="product-out-stock.html">نمایش ناموجود در انبار محصول</a></li>
+								<li><a href="product-upsell.html">نمایش پرفروش ترین محصولات</a></li>
+								<li><a href="product-cross-sell.html">پیشنهاد مرتبط با محصول انتخابی</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">انواع چیدمان محصولات</a>
+							<ul>
+								<li><a href="product-vertical.html">چیدمان عمودی</a></li>
+								<li><a href="product-horizontal.html">چیدمان افقی</a></li>
+								<li><a href="product-gallery.html">چیدمان گالری</a></li>
+								<li><a href="product-grid.html">تصاویر گریدی</a></li>
+								<li><a href="product-masonry.html">تصاویر سنگفرشی</a></li>
+								<li><a href="product-sticky.html">اطلاعات چسبیده ( استیکی )</a></li>
+								<li><a href="product-sticky-both.html">چپ وراست چسبیده ( استیکی )</a></li>
+								<li><a href="product-left-sidebar.html">با سایدبار سمت چپ</a></li>
+								<li><a href="product-right-sidebar.html">با سایدبار سمت راست</a></li>
+								<li><a href="product-full.html">چیدمان کامل محصول </a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">دیگر امکانات محصول</a>
+							<ul>
+								<li><a href="product-sale.html">شمارش معکوس فروش</a></li>
+								<li><a href="product-hurryup.html">نوتیفیکیشن آخرین فرصت</a></li>
+								<li><a href="product-attribute-guide.html">با راهنمای اندازه</a></li>
+								<li><a href="product-sticky-cart.html">اضافه به خرید چسبیده</a></li>
+								<li><a href="product-thumbnail-label.html">برچسب روی تصویر</a></li>
+								<li><a href="product-more-description.html"> تب توضیحات بیشتر</a></li>
+								<li><a href="product-accordion-data.html">اطلاعات در آکاردئون</a></li>
+								<li><a href="product-tabinside.html">اطلاعات در داخل </a></li>
+								<li><a href="product-video.html">برچسب روی ویدئو </a></li>
+								<li><a href="product-360-degree.html">برچسب روی 360 درجه</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">صفحات</a>
+					<ul>
+						<li><a href="about-us.html">درباره ما</a></li>
+						<li><a href="contact-us.html">تماس با ما</a></li>
+						<li><a href="account.html">حساب کاربری</a></li>
+						<li><a href="wishlist.html">علاقه مندی</a></li>
+						<li><a href="faq.html">سوالات متداول</a></li>
+						<li>
+							<a href="error-404.html">خطای 404</a>
+							<ul>
+								<li><a href="error-404.html">خطای 404-1</a></li>
+								<li><a href="error-404-1.html">خطای 404-2</a></li>
+								<li><a href="error-404-2.html">خطای 404-3</a></li>
+								<li><a href="error-404-3.html">خطای 404-4</a></li>
+							</ul>
+						</li>
+						<li><a href="coming-soon.html">بزودی</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="blog-classic.html">وبلاگ</a>
+					<ul>
+						<li><a href="blog-classic.html">کلاسیک</a></li>
+						<li><a href="blog-listing.html">وبلاگ لیست وار</a></li>
+						<li>
+							<a href="#">گرید وبلاگ</a>
+							<ul>
+								<li><a href="blog-grid-2col.html">وبلاگ  2 ستونه</a></li>
+								<li><a href="blog-grid-3col.html">وبلاگ  3 ستونه</a></li>
+								<li><a href="blog-grid-4col.html">وبلاگ  4 ستونه</a></li>
+								<li><a href="blog-grid-sidebar.html">وبلاگ با سایدبار</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">کاشی کاری</a>
+							<ul>
+								<li><a href="blog-masonry-2col.html">کاشی کاری 2 ستونه</a></li>
+								<li><a href="blog-masonry-3col.html">کاشی کاری 3 ستونه</a></li>
+								<li><a href="blog-masonry-4col.html">کاشی کاری 4 ستونه</a></li>
+								<li><a href="blog-masonry-sidebar.html">کاشی کاری با سایدبار( نوار جانبی )</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">متن روی تصویر</a>
+							<ul>
+								<li><a href="blog-mask-grid.html">متن روی تصویر درگرید</a></li>
+								<li><a href="blog-mask-masonry.html">متن روی تصویر در کاشی کاری</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="post-single.html">پست تکی</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="element.html">المان ها</a>
+					<ul>
+						<li>
+							<a href="#">المان ها 1</a>
+							<ul>
+								<li><a href="element-accordions.html">آکاردئون</a></li>
+								<li><a href="element-alerts.html">نوتیفیکیشن و هشدارها</a></li>
+								<li><a href="element-banner-effect.html">افکت بروی بنر</a></li>
+								<li><a href="element-banner.html">بنر</a></li>
+								<li><a href="element-blog-posts.html">پست وبلاگ</a></li>
+								<li><a href="element-breadcrumb.html"> منو پیمایشی ( بردکرامب )</a></li>
+								<li><a href="element-buttons.html">دکمه ها</a></li>
+								<li><a href="element-cta.html">ترغیب به اقدام ( کال تو اکشن )</a></li>
+								<li><a href="element-countdown.html">شمارش معکوس</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">المان ها 2</a>
+							<ul>
+								<li><a href="element-counter.html">شمارنده </a></li>
+								<li><a href="element-creative-grid.html">گرید خلاقانه</a></li>
+								<li><a href="element-animation.html">افکت ورود متن</a></li>
+								<li><a href="element-floating.html">المنت های شناور</a></li>
+								<li><a href="element-hotspot.html">تعاملی ( هات اسپات )</a></li>
+								<li><a href="element-icon-boxes.html">جعبه های آیکن</a></li>
+								<li><a href="element-icons.html">آیکن ها</a></li>
+								<li><a href="element-image-box.html">جعبه عکس</a></li>
+								<li><a href="element-instagrams.html">اینستاگرام</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">المان ها 3</a>
+							<ul>
+								<li><a href="element-categories.html">دسته بندی محصولات</a></li>
+								<li><a href="element-products.html">محصولات</a></li>
+								<li><a href="element-product-banner.html">محصولاب با بنر</a></li>
+								<li><a href="element-product-grid.html">محصولات با گرید</a></li>
+								<li><a href="element-product-single.html">تک محصوله</a></li>
+								<li><a href="element-product-tab.html">محصولات با تب</a></li>
+								<li><a href="element-single-product.html">تک محصوله </a></li>
+								<li><a href="element-slider.html">اسلایدر</a></li>
+								<li><a href="element-social-link.html">آیکن سوشیال</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">المان ها 4</a>
+							<ul>
+								<li><a href="element-subcategory.html">زیر شاخه</a></li>
+								<li><a href="element-svg-floating.html">Svg شناور</a></li>
+								<li><a href="element-tabs.html">تب ها</a></li>
+								<li><a href="element-testimonials.html">نظرات مشتریان</a></li>
+								<li><a href="element-titles.html">عنوان ها</a></li>
+								<li><a href="element-typography.html">آرایش حروف و کاراکترها( تایپوگرافی )</a></li>
+								<li><a href="element-vendor.html">فروشنده ( وندور )</a></li>
+								<li>
+									<a href="element-video.html">ویدئو</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="#">خرید تمپلیت </a></li>
+			</ul>
+			<!-- End MobileMenu -->
+		</div>
+	</div>
+	<!-- sticky icons-->
+	<div class="sticky-icons-wrapper rtl">
+		<div class="sticky-icon-links">
+			<ul>
+				<li><a href="#" class="demo-toggle"><i class="fas fa-home"></i><span>دموها</span></a></li>
+				<li><a href="documentation.html"><i class="fas fa-info-circle"></i><span>مستندات</span></a>
+				</li>
+				<li><a href="#"><i class="fas fa-star"></i><span>بازدید</span></a>
+				</li>
+				<li><a href="#"><i class="fas fa-shopping-cart"></i><span>خرید
+							!</span></a></li>
+			</ul>
+		</div>
+		<div class="demos-list">
+			<div class="demos-overlay"></div>
+			<a class="demos-close" href="#"><i class="close-icon"></i></a>
+			<div class="demos-content scrollable scrollable-light">
+				<h3 class="demos-title">دموها</h3>
+				<div class="demos">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Plugins JS File -->
+	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'vendor/sticky/sticky.min.js' %}"></script>
+	<script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+	<script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'vendor/owl-carousel/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'vendor/elevatezoom/jquery.elevatezoom.min.js' %}"></script>
+	<script src="{% static 'vendor/photoswipe/photoswipe.min.js' %}"></script>
+	<script src="{% static 'vendor/photoswipe/photoswipe-ui-default.min.js' %}"></script>
+	<!-- Main JS File -->
+	<script src="{% static 'js/main.min.js' %}"></script>
+</body>
+</html>

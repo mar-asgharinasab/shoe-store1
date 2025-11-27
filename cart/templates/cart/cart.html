@@ -1,0 +1,89 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<main class="main cart rtl text-right">
+  <div class="container py-5">
+    <h3 class="mb-5 text-center">🛍 سبد خرید شما</h3>
+
+    {% if cart_items %}
+    <form method="post" class="shadow p-4 bg-white rounded-4">
+      {% csrf_token %}
+
+      <div class="table-responsive">
+        <table class="table table-striped text-center align-middle border">
+          <thead class="table-dark">
+            <tr>
+              <th>محصول</th>
+              <th>قیمت واحد</th>
+              <th style="width:120px;">تعداد</th>
+              <th>جمع</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+            <tr>
+              <td class="text-start">
+                <div class="d-flex align-items-center gap-3">
+                  {% if item.product.image %}
+                  <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}"
+                       class="rounded" width="70" height="70">
+                  {% endif %}
+                  <div>
+                    <strong>{{ item.product.title }}</strong><br>
+                    <small class="text-muted">
+                      رنگ: {{ item.color.title }} | سایز: {{ item.size.title }}
+                    </small>
+                  </div>
+                </div>
+              </td>
+
+              <td>{{ item.price|intcomma }} تومان</td>
+
+              <td>
+                <input type="number" name="count_{{ item.id }}" value="{{ item.count }}" min="1"
+                       class="form-control text-center mx-auto" style="width:90px;">
+              </td>
+
+              <td><strong>{{ item.subtotal|intcomma }}</strong> تومان</td>
+
+              <td>
+                <button type="submit" name="delete_{{ item.id }}" class="btn btn-outline-danger btn-sm">
+                  ❌ حذف
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-4">
+        <h5 class="fw-bold">💰 جمع کل: {{ total_price|intcomma }} تومان</h5>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-dark px-4">اعمال تغییرات</button>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'checkout' %}" class="btn btn-success px-5">نهایی کردن سفارش</a>
+        {% else %}
+        <a href="{% url 'login' %}?next={% url 'checkout' %}" class="btn btn-warning px-5">
+          ورود برای نهایی کردن سفارش
+        </a>
+        {% endif %}
+      </div>
+    </form>
+
+    {% else %}
+    <div class="text-center mt-5">
+      <p class="fs-5">سبد خرید شما خالی است 🛒</p>
+      <a href="{% url 'productlis' %}" class="btn btn-outline-dark mt-3">بازگشت به فروشگاه</a>
+    </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
+

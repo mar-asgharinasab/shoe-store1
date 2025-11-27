@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h3 class="text-center mb-4">📦 تکمیل اطلاعات سفارش</h3>
+  <form method="post" class="mx-auto" style="max-width:500px;">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">نام و نام خانوادگی</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">شماره موبایل</label>
+      <input type="text" name="phone" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">آدرس</label>
+      <textarea name="address" class="form-control" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">کد پستی</label>
+      <input type="text" name="postal_code" class="form-control" required>
+    </div>
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-success px-5 py-2">نهایی کردن سفارش</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
