@@ -390,7 +390,7 @@
                                 {% if colors %}
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title">رنگ</h3>
-                                    <div class="widget-body mt-3" onclick="event.stopPropagation();">
+                                    <div class="widget-body mt-3">
                                         <div class="filter-options" style="display: flex; flex-wrap: wrap; gap: 10px;">
                                             {% for color in colors %}
                                             <label style="cursor: pointer; display: inline-flex; align-items: center; padding: 8px 12px; border: 2px solid #ddd; border-radius: 5px; background: white; transition: all 0.3s; user-select: none;" 
@@ -410,7 +410,7 @@
                                 {% if sizes %}
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title">سایز</h3>
-                                    <div class="widget-body mt-3" onclick="event.stopPropagation();">
+                                    <div class="widget-body mt-3">
                                         <div class="filter-options" style="display: flex; flex-wrap: wrap; gap: 10px;">
                                             {% for size in sizes %}
                                             <label style="cursor: pointer; display: inline-flex; align-items: center; padding: 8px 15px; border: 2px solid #ddd; border-radius: 5px; background: white; transition: all 0.3s; min-width: 60px; justify-content: center; user-select: none;" 
@@ -429,7 +429,7 @@
                                 {% if brands %}
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title">برند</h3>
-                                    <div class="widget-body mt-3" onclick="event.stopPropagation();">
+                                    <div class="widget-body mt-3">
                                         <div class="filter-options" style="display: flex; flex-wrap: wrap; gap: 10px;">
                                             <label style="cursor: pointer; display: inline-flex; align-items: center; padding: 8px 15px; border: 2px solid #ddd; border-radius: 5px; background: white; transition: all 0.3s; user-select: none;" 
                                                    onmouseover="if(!this.querySelector('input').checked) this.style.borderColor='#333';" 
@@ -502,6 +502,9 @@
                     align-items: center;
                     justify-content: space-between;
                     font-weight: 700;
+                    pointer-events: auto;
+                    position: relative;
+                    z-index: 10;
                 }
                 .widget .widget-title::after {
                     content: '▾';
@@ -509,12 +512,14 @@
                     opacity: .7;
                     transform: rotate(0deg);
                     transition: transform .2s ease;
+                    pointer-events: none;
                 }
                 .widget.open .widget-title::after {
                     transform: rotate(180deg);
                 }
                 .widget .widget-body {
                     display: none;
+                    pointer-events: auto;
                 }
                 .widget.open .widget-body {
                     display: block;
@@ -563,17 +568,7 @@
                             });
                         });
                     });
-                    // باز/بسته کردن هر ویجت با کلیک روی عنوان
-                    document.querySelectorAll('.widget.widget-collapsible').forEach(function(widget) {
-                        var title = widget.querySelector('.widget-title');
-                        var body = widget.querySelector('.widget-body');
-                        if (!title || !body) return;
-                        // پیش‌فرض: بسته
-                        widget.classList.remove('open');
-                        title.addEventListener('click', function() {
-                            widget.classList.toggle('open');
-                        });
-                    });
+                    // کد باز کردن فیلترها به انتهای صفحه منتقل شد
                 });
             </script>
         </section>
@@ -1561,5 +1556,84 @@
         </div>
     </div>
 </main> {% endcomment %}
+
+    </div>
+</main>
+
+<script>
+// Override کامل handler قالب - استفاده از capture phase برای اولویت بالا
+(function() {
+    'use strict';
+    
+    // استفاده از capture phase برای اجرا قبل از همه handler های دیگر
+    document.addEventListener('click', function(e) {
+        var target = e.target;
+        var title = target.closest('.widget-collapsible .widget-title');
+        
+        if (title) {
+            // جلوگیری از اجرای handler قالب
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            
+            // پیدا کردن body
+            var widget = title.closest('.widget-collapsible');
+            var body = widget ? widget.querySelector('.widget-body') : null;
+            
+            if (!body) return false;
+            
+            // بررسی وضعیت با vanilla JavaScript
+            var isCollapsed = title.classList.contains('collapsed');
+            
+            // toggle کردن فوری
+            if (isCollapsed) {
+                title.classList.remove('collapsed');
+                body.style.display = 'block';
+            } else {
+                title.classList.add('collapsed');
+                body.style.display = 'none';
+            }
+            
+            // trigger recalc برای sticky sidebar (اگر jQuery لود شده)
+            if (typeof jQuery !== 'undefined') {
+                setTimeout(function() {
+                    jQuery('.sticky-sidebar').trigger('recalc.pin');
+                }, 50);
+            }
+            
+            return false;
+        }
+    }, true); // capture phase - اجرا قبل از همه
+    
+    // غیرفعال کردن handler قالب بعد از لود شدن jQuery
+    function disableTemplateHandler() {
+        if (typeof jQuery === 'undefined') {
+            setTimeout(disableTemplateHandler, 100);
+            return;
+        }
+        
+        var $ = jQuery;
+        // غیرفعال کردن handler قالب
+        $('.widget-collapsible .widget-title').off('click');
+        
+        // پیش‌فرض: همه بسته باشند
+        $('.widget-collapsible .widget-title').addClass('collapsed');
+        $('.widget-collapsible .widget-body').hide();
+    }
+    
+    // اجرا بعد از لود شدن
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(disableTemplateHandler, 200);
+        });
+    } else {
+        setTimeout(disableTemplateHandler, 200);
+    }
+    
+    window.addEventListener('load', function() {
+        setTimeout(disableTemplateHandler, 300);
+    });
+})();
+</script>
 
 {% endblock content %}

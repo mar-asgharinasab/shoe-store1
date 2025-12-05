@@ -62,16 +62,42 @@ class Brand(models.Model):
         return self.title
 
    
-class Category(models.Model): 
-    title = models.CharField(max_length=20)
-   
-    en_title = models.CharField(max_length=20, unique=True,blank=True)
- 
+class Category(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=120, unique=True, blank=True)
     description = models.TextField(blank=True)
     
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcategories')
+    image = models.ImageField(
+        upload_to="categories/", 
+        blank=True, 
+        null=True,
+        help_text="تصویر دسته‌بندی (اختیاری)"
+    )
+
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='children'
+    )
+
+    class Meta:
+        verbose_name = "دسته‌بندی"
+        verbose_name_plural = "دسته‌بندی‌ها"
+        ordering = ['parent__id', 'title']  # مرتب‌سازی بهتر
+
+    def save(self, *args, **kwargs):
+        # ایجاد خودکار slug
+        if not self.slug:
+            self.slug = slugify(self.title, allow_unicode=False)
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.title}"
+        # نمایش زیباتر در ادمین
+        if self.parent:
+            return f"{self.parent} → {self.title}"
+        return self.title
     
 
 

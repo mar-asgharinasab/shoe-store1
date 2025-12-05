@@ -228,27 +228,30 @@ from .models import Category, Product
 
 def products_list_category(request, category):
     if category == "all":
-        # اگر دسته "تمام محصولات" انتخاب شده باشد، همه محصولات را نمایش بده
         products = Product.objects.filter(is_available=True)
-        category_obj = None  
+        category_obj = None
+        subcategories = []
     else:
-        # پیدا کردن دسته موردنظر
-        category_obj = get_object_or_404(Category, en_title=category)
+        # پیدا کردن دسته والد
+        category_obj = get_object_or_404(Category, slug=category)
 
-        # دریافت تمام زیرمجموعه‌های این دسته
-        subcategories = category_obj.subcategories.all()
+        # گرفتن زیر دسته ها
+        subcategories = category_obj.children.all()
 
-        # فیلتر کردن محصولات دسته موردنظر و تمام زیرمجموعه‌های آن
-        products = Product.objects.filter(categories__in=[category_obj] + list(subcategories), is_available=True).distinct()
+        # نمایش محصولات دسته و زیردسته‌ها
+        products = Product.objects.filter(
+            categories__in=[category_obj] + list(subcategories),
+            is_available=True
+        ).distinct()
 
     context = {
         'products': products,
         'categories': Category.objects.all(),
-        'current_category': category_obj
+        'current_category': category_obj,
+        'subcategories': subcategories,   # ← این مهم‌ترین بخش است
     }
 
     return render(request, 'products/products.html', context)
-
 
 
 
@@ -268,8 +271,16 @@ def product_list_view(request, category_slug=None):
     
     # اگر دسته‌بندی خاصی انتخاب شده باشد
     if category_slug:
-        selected_category = get_object_or_404(Category, en_title=category_slug)
-        products = products.filter(categories=selected_category)
+        selected_category = get_object_or_404(Category, slug=category_slug)
+
+    # دریافت تمام زیرمجموعه‌های این دسته
+        subcategories = selected_category.children.all()
+
+    # نمایش محصولات دسته و تمام ساب‌دسته‌ها
+        products = products.filter(
+            categories__in=[selected_category] + list(subcategories)
+        ).distinct()
+
     
     # فیلتر جستجو
     search_query = request.GET.get('search')
@@ -541,7 +552,11 @@ def product_detail_view(request, pk):
     if request.method == "POST":
         color_id = request.POST.get("color")
         size_id = request.POST.get("size")
-        count = int(request.POST.get("count", 1))
+        raw_count = request.POST.get("count") or request.POST.get("quantity") or "1"
+        try:
+            count = int(raw_count)
+        except (TypeError, ValueError):
+            count = 1
 
         # بررسی ورودی‌ها
         if not color_id:
