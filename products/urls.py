@@ -4,14 +4,13 @@ from .views import *
 
 urlpatterns = [
     # صفحه اصلی محصولات
-    path('', product_list_view, name='product_list'),
+    path('', products_list_view, name='product_list'),
 
     # جزئیات محصول
     path('product-detail/<int:pk>/', product_detail_view, name='product_detail'),
 
     # دسته‌بندی و زیر دسته‌بندی داینامیک
-   path('category/<str:category_slug>/', products_list_category, name='products_by_category'),
-   
+    path('category/<str:category_slug>/', products_list_view, name='products_by_category'),
 
     # سبد خرید
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),

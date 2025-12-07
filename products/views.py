@@ -1,25 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Product, Category, Comment, Gallary, Color, Size, Brand
 from cart.models import Cart, CartItem
-import json
 
 # ===========================
-# لیست محصولات
+# لیست محصولات و دسته‌بندی‌ها
 # ===========================
-def product_list_view(request, category_slug=None):
+def products_list_view(request, category_slug=None):
+    """
+    نمایش محصولات با فیلترها و دسته‌بندی‌ها.
+    category_slug: اسلاگ دسته یا زیرشاخه. اگر None باشد، تمام محصولات نمایش داده می‌شوند.
+    """
+    # دسته‌های والد برای منو
     categories = Category.objects.filter(parent__isnull=True)
-    products = Product.objects.filter(is_available=True).distinct()
-    selected_category = None
 
-    # فیلتر دسته‌بندی
-    if category_slug:
-        selected_category = get_object_or_404(Category, slug=category_slug)
-        subcategories = selected_category.children.all()
-        products = products.filter(
-            categories__in=[selected_category] + list(subcategories)
+    # حالت "تمام محصولات"
+    if category_slug in [None, "all"]:
+        products = Product.objects.filter(is_available=True).distinct()
+        current_category = None
+        subcategories = []
+    else:
+        # پیدا کردن دسته یا زیرشاخه
+        current_category = get_object_or_404(Category, slug=category_slug)
+        subcategories = current_category.children.all()
+        products = Product.objects.filter(
+            is_available=True,
+            categories__in=[current_category] + list(subcategories)
         ).distinct()
 
     # فیلتر جستجو
@@ -44,58 +50,23 @@ def product_list_view(request, category_slug=None):
     if brand_id:
         products = products.filter(brand__id=brand_id)
 
+    # اطلاعات فیلترها برای نمایش
     sizes = Size.objects.all().order_by('title')
     colors = Color.objects.all().order_by('title')
     brands = Brand.objects.all().order_by('title')
 
     context = {
-        "categories": categories,
-        "selected_category": selected_category,
         "products": products,
-        "search_query": search_query,
+        "categories": categories,
+        "current_category": current_category,
+        "subcategories": subcategories,
         "sizes": sizes,
         "colors": colors,
         "brands": brands,
         "selected_sizes": [int(sid) for sid in size_ids if sid.isdigit()],
         "selected_colors": [int(cid) for cid in color_ids if cid.isdigit()],
         "selected_brand": int(brand_id) if brand_id and brand_id.isdigit() else None,
-    }
-    return render(request, 'products/products.html', context)
-
-# ===========================
-# محصولات بر اساس دسته‌بندی (می‌تواند به جای بالا استفاده شود)
-# ===========================
-from django.shortcuts import render, get_object_or_404
-from .models import Product, Category
-def products_list_category(request, category_slug):
-    """
-    نمایش محصولات بر اساس دسته‌بندی یا زیرشاخه.
-    category_slug: اسلاگ دسته یا زیرشاخه
-    """
-
-    # حالت "تمام محصولات"
-    if category_slug == "all":
-        products = Product.objects.filter(is_available=True)
-        category = None
-        subcategories = []
-    else:
-        # پیدا کردن دسته یا زیرشاخه
-        category = get_object_or_404(Category, slug=category_slug)
-
-        # زیرشاخه‌ها
-        subcategories = category.children.all()
-
-        # گرفتن محصولات دسته + زیرشاخه‌ها
-        products = Product.objects.filter(
-            is_available=True,
-            categories__in=[category] + list(subcategories)
-        ).distinct()
-
-    context = {
-        "products": products,
-        "categories": Category.objects.filter(parent__isnull=True),  # دسته‌های والد برای منو
-        "current_category": category,
-        "subcategories": subcategories,
+        "search_query": search_query,
     }
     return render(request, "products/products.html", context)
 
@@ -175,6 +146,7 @@ def product_detail_view(request, pk):
 
     return render(request, "products/product-detail.html", context)
 
+
 # ===========================
 # صفحات اطلاعاتی
 # ===========================
@@ -187,13 +159,13 @@ def aboutus_view(request):
 def account_view(request):
     return render(request, 'products/account.html')
 
+
 # ===========================
 # سبد خرید
 # ===========================
 @login_required
 def add_to_cart(request, product_id):
-    # کد مشابه product_detail_view برای افزودن به سبد
-    pass  # می‌توانی کد کامل خودت را اینجا بذاری
+    pass  # می‌توانی کد خودت را اینجا بذاری
 
 @login_required
 def cart_detail(request):
