@@ -8,95 +8,32 @@
 <main class="main rtl text-right">
     <div class="page-content">
         <section class="intro-section ltr">
-            <div class="owl-carousel owl-theme owl-rtl row owl-dot-inner owl-dot-white intro-slider animation-slider cols-1 gutter-no ltr"
-                 data-owl-options="{
-                'nav': false,
-                'dots': true,
-                'loop': false,
-                'items': 1,
-                'autoplay': false,
-                'autoplayTimeout': 8000
-            }">
-                <div class="banner banner-fixed intro-slide1  " style="background-color: #46b2e8;">
-                    <figure>
-                        <img src="{% static 'images/demos/demo1/slides/slide1.jpg' %}" alt="intro-banner" width="1903"
-                             height="630" style="background-color: #34ace5;" />
-                    </figure>
-                    {% comment %} <div class="container">
-                        <div class="banner-content y-50 text-right rtl">
-                            <h4 class="banner-subtitle font-weight-bold ls-l">
-                                <span class="d-inline-block slide-animate"
-                                      data-animation-options="{'name': 'fadeInRightShorter', 'duration': '1s', 'delay': '.2s'}">یکی بخرید</span>
-                                <span class="d-inline-block label-star bg-white text-primary slide-animate"
-                                      data-animation-options="{'name': 'fadeInRightShorter', 'duration': '1s', 'delay': '.4s'}">2 تا ببرید</span>
-                            </h4>
-                            <h2 class="banner-title font-weight-bold text-white lh-1 ls-md slide-animate"
-                                data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1.2s', 'delay': '1s'}">
-                                حراج آخر فصل
-                            </h2>
-                            <p class="slide-animate text-white ls-s mb-7"
-                               data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1.2s', 'delay': '1s'}">
-                                تمام سفارش های بالای 300 هزار تومان رایگان ارسال می شوند
-                            </p>
-                            <a href="shop.html" class="btn btn-dark btn-rounded slide-animate"
-                               data-animation-options="{'name': 'fadeInUpShorter', 'duration': '1s', 'delay': '1.8s'}">
-                                مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div> {% endcomment %}
-                </div>
-                <div class="banner banner-fixed intro-slide2  " style="background-color: #dddee0;">
-                    <figure>
-                        <img src="{% static 'images/demos/demo1/slides/slide2.jpg' %}" alt="intro-banner" width="1903"
-                             height="630" style="background-color: #d8d9d9;" />
-                    </figure>
-                    <div class="container">
-                        <div class="banner-content y-50 mr-auto text-right rtl">
-                            <h4 class="banner-subtitle ls-s mb-1 slide-animate"
-                                data-animation-options="{'name': 'fadeInUp', 'duration': '.7s'}">
-                                <span class="d-block text-uppercase mb-2">به زودی</span><strong class="font-weight-semi-bold ls-m">کالکشن ویژه</strong>
-                            </h4>
-                            <h2 class="banner-title mb-2 d-inline-block font-weight-bold text-primary slide-animate"
-                                data-animation-options="{'name': 'fadeInRight', 'duration': '1.2s', 'delay': '.5s'}">
-                                نوروز
-                            </h2>
-                            <p class="slide-animate font-primary ls-s text-dark mb-4"
-                               data-animation-options="{'name': 'fadeInUp', 'duration': '1s', 'delay': '1.2s'}">
-                                تمام سفارش های بالای 300 هزار تومان رایگان ارسال می شوند
-                            </p>
-                            <a href="shop.html" class="btn btn-dark btn-rounded slide-animate"
-                               data-animation-options="{'name': 'fadeInUp', 'duration': '1s', 'delay': '1.4s'}">
-                                مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% comment %} <div class="banner banner-fixed video-banner intro-slide3" style="background-color: #dddee0;">
-                    <figure>
-                        <video src="{% static 'video/memory-of-a-woman.mp4' %}" width="1903" height="630"></video>
-                    </figure>
-                    <div class="container">
-                        <div class="banner-content x-50 y-50 text-center rtl">
-                            <h4 class="banner-subtitle text-white text-uppercase mb-3 ls-normal slide-animate"
-                                data-animation-options="{'name': 'fadeIn', 'duration': '.7s'}">
-                                حراج پرفروش ترین کالکشن آخر فصل
-                            </h4>
-                            <h2 class="banner-title mb-3 text-white font-weight-bold text-uppercase ls-m slide-animate"
-                                data-animation-options="{'name': 'fadeInUp', 'duration': '.7s', 'delay': '.5s'}">
-                                فصل بهار
-                            </h2>
-                            <p class="slide-animate mb-7 text-white ls-s font-primary "
-                               data-animation-options="{'name': 'fadeInUp', 'duration': '1s', 'delay': '.8s'}">
-                                تا 50% تخفیف به علاوه ارسال رایگان<br />بر روی تمام سفارش های بالای 300 هزار تومان
-                            </p>
-                            <a href="shop.html" class="btn btn-dark btn-rounded slide-animate mb-1"
-                               data-animation-options="{'name': 'fadeInLeft', 'duration': '1s', 'delay': '1.5s'}">
-                                مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div> {% endcomment %}
-            </div>
+           <div class="owl-carousel owl-theme owl-rtl row owl-dot-inner owl-dot-white intro-slider animation-slider cols-1 gutter-no ltr"
+     data-owl-options="{
+        'nav': false,
+        'dots': true,
+        'loop': true,
+        'items': 1,
+        'autoplay': true,
+        'autoplayTimeout': 4000
+    }">
+
+    <!-- اسلاید 1 -->
+    <div class="banner banner-fixed intro-slide1" style="background-color: #46b2e8;">
+        <figure>
+            <img src="{% static 'images/banner1.jpg' %}" alt="intro-banner" width="1903" height="630">
+        </figure>
+    </div>
+
+    <!-- اسلاید 2 -->
+    <div class="banner banner-fixed intro-slide2" style="background-color: #dddee0;">
+        <figure>
+            <img src="{% static 'images/banner2.jpg' %}" alt="intro-banner" width="1903" height="630">
+        </figure>
+    </div>
+
+</div>
+
             <div class="container mt-6 appear-animate">
                 <div class="service-list">
                     <div class="owl-carousel owl-theme owl-rtl row cols-lg-3 cols-sm-2 cols-1" data-owl-options="{
@@ -168,7 +105,7 @@
                 <div class="row">
                     <div class="col-xs-6 col-lg-3 mb-4">
                         <div class="category category-default1 category-absolute banner-radius overlay-zoom">
-                            <a href="{% url 'productlis' %}?is_sale=true">
+                            <a href="{% url 'product_list' %}?is_sale=true">
                                 <figure class="category-media">
                                     <img src="{% static 'images/categories/category1.jpg' %}" alt="category" width="280"
                                          height="280" style="background-color: #8c8c8d;" />
@@ -176,7 +113,7 @@
                             </a>
                             <div class="category-content rtl">
                                 <h4 class="category-name font-weight-bold">
-                                    <a href="{% url 'productlis' %}?is_sale=true">اجناس تخفیف خورده</a>
+                                    <a href="{% url 'product_list' %}?is_sale=true">اجناس تخفیف خورده</a>
                                 </h4>
                             </div>
                         </div>
@@ -197,7 +134,7 @@
                             </div>
                         </div>
                     </div> {% endcomment %}
-                    <div class="col-xs-6 col-lg-3 mb-4">
+                    {% comment %} <div class="col-xs-6 col-lg-3 mb-4">
                         <div class="category category-default1 category-absolute banner-radius overlay-zoom">
                             <a href="{% url 'products_by_category' category='all' %}">
                                 <figure class="category-media">
@@ -211,8 +148,23 @@
                                 </h4>
                             </div>
                         </div>
+                    </div> {% endcomment %}
+                    <div class="col-xs-6 col-lg-3 mb-4">
+                        <div class="category category-default1 category-absolute banner-radius overlay-zoom">
+                            <a href="{% url 'products_by_category' category_slug='all' %}">
+                                <figure class="category-media">
+                                    <img src="{% static 'images/categories/category2.jpg' %}" alt="category" width="280"
+                                        height="280" style="background-color: #bcbdb7;" />
+                                </figure>
+                            </a>
+                            <div class="category-content rtl">
+                                <h4 class="category-name font-weight-bold">
+                                    <a href="{% url 'products_by_category' category_slug='all' %}">تمام محصولات</a>
+                                </h4>
+                            </div>
+                        </div>
                     </div>
-                    
+
                     <div class="col-xs-6 col-lg-3 mb-4">
                         <div class="category category-default1 category-absolute banner-radius overlay-zoom">
                             <a href="shop.html">
@@ -378,9 +330,9 @@
                         <div class="sticky-sidebar" data-sticky-options="{'top': 10}">
                             <div class="filter-actions mb-4 rtl">
                                 <a href="#" class="sidebar-toggle-btn toggle-remain btn btn-outline btn-primary btn-icon-left btn-rounded">فیلتر<i class="d-icon-arrow-left"></i></a>
-                                <a href="{% url 'productlis' %}" class="filter-clean">پاک کردن همه</a>
+                                <a href="{% url 'product_list' %}" class="filter-clean">پاک کردن همه</a>
                             </div>
-                            <form method="get" action="{% url 'productlis' %}" id="filter-form" class="rtl">
+                            <form method="get" action="{% url 'product_list' %}" id="filter-form" class="rtl">
                                 {% if search_query %}
                                     <input type="hidden" name="search" value="{{ search_query }}">
                                 {% endif %}
@@ -457,7 +409,7 @@
                                     <button type="submit" class="btn btn-dark btn-rounded" style="padding: 10px 30px; margin-left: 10px;">
                                         اعمال فیلتر
                                     </button>
-                                    <a href="{% url 'productlis' %}" class="btn btn-outline btn-rounded" style="padding: 10px 30px;">
+                                    <a href="{% url 'product_list' %}" class="btn btn-outline btn-rounded" style="padding: 10px 30px;">
                                         پاک کردن
                                     </a>
                                 </div>

@@ -245,12 +245,12 @@
                         <a href="#" class="mobile-menu-toggle">
                             <i class="d-icon-bars2"></i>
                         </a>
-                        <a href="{% url 'productlis' %}" class="logo" aria-label="صفحه اصلی">
+                        <a href="{% url 'product_list' %}" class="logo" aria-label="صفحه اصلی">
                             <img src="{% static 'images/logo.png' %}" alt="logo" width="153" height="44">
                           </a>
                         <!-- End Logo -->
                         <div class="header-search hs-simple">
-                            <form action="{% url 'productlis' %}" method="get" class="input-wrapper">
+                            <form action="{% url 'product_list' %}" method="get" class="input-wrapper">
                                 <input type="text" class="form-control" name="search" autocomplete="off"
                                        placeholder="جستجو ..." required />
                                 <button class="btn btn-search" type="submit" title="submit-button">
@@ -621,82 +621,132 @@
                                 <div class="container">
                                     <div class="header-right">
                                         <nav class="main-nav">
-                                            <ul class="menu">
+    {% comment %} <ul class="menu">
+        {% for main_category in categories %}
+            {% if not main_category.parent %}
+                <li class="submenu submenu-container">
+                    <a href="{% url 'products_by_category' category_slug=main_category.slug %}">
+                        {{ main_category.title }}
+                    </a>
 
-                                                {% for main_category in categories %}
-                                                    {% if not main_category.parent %}
-                                                        <li class="submenu submenu-container">
-                                                            <a href="{% url 'products_by_category' main_category.slug %}">
-                                                                {{ main_category.title }}
-                                                            </a>
+                    {% if main_category.children.exists %}
+                        <div class="megamenu">
+                            <div class="row">
 
-                                                            {% if main_category.children.exists %}
-                                                                <div class="megamenu">
-                                                                    <div class="row">
+                                {% for sub in main_category.children.all %}
+                                    <div class="col-6 col-sm-4 col-md-4 col-lg-3">
+                                        <h4 class="menu-title">
+                                            <a href="{% url 'products_by_category' category_slug=sub.slug %}">
+                                                {{ sub.title }}
+                                            </a>
+                                        </h4>
 
-                                                                        {% for sub in main_category.children.all %}
-                                                                            <div class="col-6 col-sm-4 col-md-4 col-lg-3">
-                                                                                <h4 class="menu-title">
-                                                                                    <a href="{% url 'products_by_category' sub.slug %}">
-                                                                                        {{ sub.title }}
-                                                                                    </a>
-                                                                                </h4>
-
-                                                                                {% if sub.children.exists %}
-                                                                                    <ul class="submenu">
-                                                                                        {% for sub_sub in sub.children.all %}
-                                                                                            <li>
-                                                                                                <a href="{% url 'products_by_category' sub_sub.slug %}">
-                                                                                                    {{ sub_sub.title }}
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        {% endfor %}
-                                                                                    </ul>
-                                                                                {% endif %}
-                                                                            </div>
-                                                                        {% endfor %}
-
-                                                                        <!-- بنر منو -->
-                                                                         <div class="col-6 col-sm-4 col-md-4 col-lg-3 menu-banner menu-banner1 banner banner-fixed">
-                                                                            <figure>
-                                                                                <img src="{% static 'images/banner1.jpg' %}" alt="Menu banner" width="221" height="330" />
-                                                                            </figure>
-                                                                            <div class="banner-content y-50 text-right rtl">
-                                                                                <h4 class="banner-subtitle font-weight-bold text-primary ls-m">فروش</h4>
-                                                                                <h3 class="banner-title font-weight-bold">
-                                                                                    <span class="">بالای</span>%70 تخفیف
-                                                                                </h3>
-                                                                                <a href="shop.html" class="btn btn-link btn-underline">
-                                                                                    مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
-                                                                                </a>
-                                                                            </div>
-                                                                         
-                                                                      
-    <div class="banner-content y-50 text-right rtl">
-        <h4 class="banner-subtitle font-weight-bold text-primary ls-m">فروش ویژه</h4>
-        <h3 class="banner-title font-weight-bold">
-            <span>بالای</span> %70 تخفیف
-        </h3>
-        <a href="shop.html" class="btn btn-link btn-underline">
-            مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
-        </a>
-    </div>
-</div>
-
-                                                                    </div>
-                                                                </div>
-                                                            {% endif %}
-                                                        </li>
-                                                    {% endif %}
+                                        {% if sub.children.exists %}
+                                            <ul class="submenu">
+                                                {% for sub_sub in sub.children.all %}
+                                                    <li>
+                                                        <a href="{% url 'products_by_category' category_slug=sub_sub.slug %}">
+                                                            {{ sub_sub.title }}
+                                                        </a>
+                                                    </li>
                                                 {% endfor %}
-
-                                                <!-- سایر لینک‌ها -->
-                                                <li><a href="{% url 'aboutus' %}">درباره ما</a></li>
-                                                <li><a href="{% url 'contactus' %}">ارتباط با ما</a></li>
-                                                <li><a href="{% url 'account' %}">حساب کاربری</a></li>
-
                                             </ul>
-                                        </nav>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                <!-- بنر منو -->
+                                <div class="col-6 col-sm-4 col-md-4 col-lg-3 menu-banner menu-banner1 banner banner-fixed">
+                                    <figure>
+                                        <img src="{% static 'images/banner1.jpg' %}" alt="Menu banner" width="221" height="330" />
+                                    </figure>
+                                    <div class="banner-content y-50 text-right rtl">
+                                        <h4 class="banner-subtitle font-weight-bold text-primary ls-m">فروش ویژه</h4>
+                                        <h3 class="banner-title font-weight-bold">
+                                            <span>بالای</span> %70 تخفیف
+                                        </h3>
+                                        <a href="{% url 'products_by_category' category_slug='all' %}" class="btn btn-link btn-underline">
+                                            مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- سایر لینک‌ها -->
+        <li><a href="{% url 'aboutus' %}">درباره ما</a></li>
+        <li><a href="{% url 'contactus' %}">ارتباط با ما</a></li>
+        <li><a href="{% url 'account' %}">حساب کاربری</a></li>
+    </ul> {% endcomment %}
+    <ul class="menu">
+        {% for main_category in categories %}
+            {% if not main_category.parent %}
+                <li class="submenu submenu-container">
+                    <a href="{% url 'products_by_category' category_slug=main_category.slug %}">
+                        {{ main_category.title }}
+                    </a>
+
+                    {% if main_category.children.exists %}
+                        <div class="megamenu">
+                            <div class="row">
+                                {% for sub in main_category.children.all %}
+                                    <div class="col-6 col-sm-4 col-md-4 col-lg-3">
+                                        <h4 class="menu-title">
+                                            <a href="{% url 'products_by_category' category_slug=sub.slug %}">
+                                                {{ sub.title }}
+                                            </a>
+                                        </h4>
+
+                                        {% if sub.children.exists %}
+                                            <ul class="submenu">
+                                                {% for sub_sub in sub.children.all %}
+                                                    <li>
+                                                        <a href="{% url 'products_by_category' category_slug=sub_sub.slug %}">
+                                                            {{ sub_sub.title }}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                <!-- بنر منو -->
+                                <div class="col-6 col-sm-4 col-md-4 col-lg-3 menu-banner menu-banner1 banner banner-fixed">
+                                    <figure>
+                                        <img src="{% static 'images/banner1.jpg' %}" alt="Menu banner" width="221" height="330" />
+                                    </figure>
+                                    <div class="banner-content y-50 text-right rtl">
+                                        <h4 class="banner-subtitle font-weight-bold text-primary ls-m">فروش ویژه</h4>
+                                        <h3 class="banner-title font-weight-bold">
+                                            <span>بالای</span> %70 تخفیف
+                                        </h3>
+                                        <a href="{% url 'product_list' %}" class="btn btn-link btn-underline">
+                                            مشاهده و انتخاب <i class="d-icon-arrow-left"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+
+    <!-- سایر لینک‌ها -->
+    <li><a href="{% url 'aboutus' %}">درباره ما</a></li>
+    <li><a href="{% url 'contactus' %}">ارتباط با ما</a></li>
+    <li><a href="{% url 'account' %}">حساب کاربری</a></li>
+</ul>
+
+
+</nav>
+
                                 </div>
 
                                 </div>
