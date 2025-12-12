@@ -1,0 +1,157 @@
+/* ===============================
+   پالت رنگ حرفه‌ای سایت
+   سبز یشمی و آبی آرام
+=============================== */
+
+/* رنگ‌ها */
+:root {
+    --emerald-green: #2ecc71; /* رنگ اصلی لوگو و دکمه‌ها */
+    --calm-blue: #3498db;     /* رنگ ثانویه برای لینک‌ها و hover */
+    --white: #ffffff;          /* پس‌زمینه اصلی */
+    --light-gray: #f5f5f5;    /* بک‌گراند کارت‌ها و بخش‌ها */
+    --dark-gray: #2c3e50;     /* متن اصلی و عنوان‌ها */
+    --teal-light: #1abc9c;    /* hover و جزئیات کوچک */
+}
+
+/* ===============================
+   عمومی
+=============================== */
+body {
+    background-color: var(--white);
+    color: var(--dark-gray);
+    font-family: 'Vazir', sans-serif;
+}
+
+/* ===============================
+   هِدِر و منو
+=============================== */
+header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+header .logo img {
+    /* لوگو سبز یشمی */
+    filter: brightness(1.1);
+}
+
+nav a {
+    color: var(--dark-gray);
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--emerald-green);
+}
+
+/* منوهای dropdown */
+nav .submenu a:hover {
+    color: var(--calm-blue);
+}
+
+/* ===============================
+   دکمه‌ها
+=============================== */
+.btn-primary {
+    background-color: var(--emerald-green);
+    color: var(--white);
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--teal-light);
+}
+
+.btn-secondary {
+    background-color: var(--calm-blue);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--emerald-green);
+}
+
+/* ===============================
+   کارت محصولات
+=============================== */
+.product-card {
+    background-color: var(--light-gray);
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+/* عنوان محصول */
+.product-card .product-title {
+    color: var(--dark-gray);
+}
+
+/* قیمت */
+.product-card .product-price {
+    color: var(--emerald-green);
+}
+
+/* ===============================
+   لینک‌ها
+=============================== */
+a {
+    color: var(--calm-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--emerald-green);
+}
+
+/* ===============================
+   فوتر
+=============================== */
+footer {
+    background-color: var(--dark-gray);
+    color: var(--white);
+    padding: 40px 0;
+}
+
+footer a {
+    color: var(--teal-light);
+}
+
+footer a:hover {
+    color: var(--emerald-green);
+}
+
+/* ===============================
+   فرم‌ها
+=============================== */
+input, select, textarea {
+    border: 1px solid var(--light-gray);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--emerald-green);
+    outline: none;
+    box-shadow: 0 0 5px var(--emerald-green);
+}
+
+/* ===============================
+   بخش‌های مهم و hover ها
+=============================== */
+.section-title {
+    color: var(--dark-gray);
+}
+
+.highlight {
+    color: var(--emerald-green);
+}
+
+.card:hover .highlight {
+    color: var(--calm-blue);
+}

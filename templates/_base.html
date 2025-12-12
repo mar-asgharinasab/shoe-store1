@@ -2,43 +2,54 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>قالب ریود :: دمو شماره یک</title>
     <meta name="keywords" content="" />
     <meta name="description" content="">
     <meta name="author" content="webnotech">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/icons/favicon.png">
-    <!-- Preload Font -->
-    <link rel="preload" href="fonts/riode.ttf?5gap68" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2"
-          crossorigin="anonymous">
-    <link rel="preload" href="vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2"
-          crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}">
+
+    <!-- Preload Fonts -->
+    <link rel="preload" href="{% static 'fonts/riode.ttf?5gap68' %}" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="{% static 'vendor/fontawesome-free/webfonts/fa-solid-900.woff2' %}" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="{% static 'vendor/fontawesome-free/webfonts/fa-brands-400.woff2' %}" as="font" type="font/woff2" crossorigin="anonymous">
+
+    <!-- WebFont Loader -->
     <script>
         WebFontConfig = {
             google: { families: ['vazir:300,400,500,600,700,800'] }
         };
-        (function (d) {
+        (function(d){
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = 'js/webfont.js';
+            wf.src = '{% static "js/webfont.js" %}';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
+
+    <!-- Vendor CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.min.css' %}">
-    <!-- Plugins CSS File -->
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/magnific-popup/magnific-popup.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/owl-carousel/owl.carousel.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/sticky-icon/stickyicon.css' %}">
+
     <!-- Font Vazir -->
     <link href="{% static 'fonts/vazir/font-vazir.css' %}" rel="stylesheet" />
+
     <!-- Main CSS File -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/demo1.min.css' %}">
-    
+
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 </head>
+
+    
+
 
 
 <body class="home">
@@ -246,8 +257,9 @@
                             <i class="d-icon-bars2"></i>
                         </a>
                         <a href="{% url 'product_list' %}" class="logo" aria-label="صفحه اصلی">
-                            <img src="{% static 'images/logo.png' %}" alt="logo" width="153" height="44">
-                          </a>
+                           <img src="{% static 'images/logo.jpg' %}" alt="logo" width="153" height="44">
+
+                        </a>
                         <!-- End Logo -->
                         <div class="header-search hs-simple">
                             <form action="{% url 'product_list' %}" method="get" class="input-wrapper">
