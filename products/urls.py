@@ -17,7 +17,7 @@ urlpatterns = [
     path('update-cart-quantity/<int:item_id>/', update_cart_quantity, name='update_cart_quantity'),
     path('cart/', cart_detail, name='cart_detail'),
     path('remove-cart-item/<int:item_id>/', remove_cart_item, name='remove_cart_item'),
-    path('checkout/', checkout_view, name='checkout'),
+    # path('checkout/', checkout_view, name='checkout'),
 
     # صفحات اطلاعاتی
     path('contact/', contactus_view, name='contactus'),
